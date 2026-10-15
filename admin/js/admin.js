@@ -1,5 +1,5 @@
-// MASUKKAN URL DEPLOYMENT APPS_SCRIPT ANDA DI SINI
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx5Irh4glDXwWrOnh1GxB8KE4jcRvLXnPexIUIveUo5QKgJierdt35z-i9PGu2Ajook/exec';
+// Menggunakan window agar tidak terjadi bentrok deklarasi ganda
+window.APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx5Irh4glDXwWrOnh1GxB8KE4jcRvLXnPexIUIveUo5QKgJierdt35z-i9PGu2Ajook/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
     // Pastikan admin sudah login
@@ -26,14 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('token', admin.token);
 
             try {
-                // Jika URL Apps Script belum dipasang, berikan notifikasi simulasi lokal
-                if (APPS_SCRIPT_URL.includes('GANTI_DENGAN_URL_ANDA')) {
-                    alert('Simulasi Lokal: Artikel berhasil disiapkan! (Hubungkan URL Apps Script untuk menyimpan permanen ke Google Sheets).');
-                    window.location.href = 'dashboard.html';
-                    return;
-                }
-
-                const response = await fetch(APPS_SCRIPT_URL, {
+                const response = await fetch(window.APPS_SCRIPT_URL, {
                     method: 'POST',
                     body: formData
                 });
