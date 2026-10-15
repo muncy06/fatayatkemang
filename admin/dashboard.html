@@ -168,8 +168,9 @@
                     const judul = item.Judul || item.judul || 'Tanpa Judul';
                     const kategori = item.Kategori || item.kategori || 'Warta';
                     const penulis = item.Penulis || item.penulis || 'Admin';
-                    let tgl = new Date(item.Tanggal || item.tanggal).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-                    if(tgl === 'Invalid Date') tgl = item.Tanggal || item.tanggal || '-';
+                    const rawTgl = item.Tanggal || item.tanggal;
+                    let tgl = new Date(rawTgl).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                    if(tgl === 'Invalid Date') tgl = rawTgl || '-';
 
                     tbody.innerHTML += `
                         <tr class="hover:bg-abu-hijau/20 transition-colors">
