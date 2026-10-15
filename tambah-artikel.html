@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Artikel Baru - PAC Fatayat NU Kemang</title>
+    
+    <!-- Google Fonts: Inter & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Konfigurasi Warna Sesuai Rumus: #00984a, #FFF2F2, #E8F5E9 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'utama': '#00984a',
+                        'utama-gelap': '#007a3b',
+                        'putih-tema': '#FFF2F2',
+                        'abu-hijau': '#E8F5E9',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .btn-loader {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased font-sans flex flex-col min-h-screen">
+
+    <!-- 1. TOP BAR ADMIN -->
+    <div class="bg-abu-hijau text-gray-700 text-xs py-2 px-4 md:px-8 border-b border-utama/20">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <span class="font-semibold text-utama uppercase tracking-wider">Panel Pengurus / Tambah Artikel</span>
+            <a href="dashboard.html" class="font-medium text-gray-800 hover:underline">&larr; Kembali ke Dashboard</a>
+        </div>
+    </div>
+
+    <!-- 2. NAVBAR ADMIN -->
+    <nav class="bg-white sticky top-0 z-50 border-b-2 border-utama">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-3.5 flex justify-between items-center">
+            <a href="dashboard.html" class="flex items-center gap-3">
+                <img src="../assets/img/logo.png" alt="Logo Fatayat" class="h-10 w-auto object-contain" onerror="this.src='https://via.placeholder.com/100x100/00984a/ffffff?text=LOGO'">
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-base text-gray-900 leading-none">PUBLIKASI BERITA</span>
+                    <span class="text-[10px] font-semibold text-utama tracking-widest uppercase mt-1">PAC Fatayat NU Kemang</span>
+                </div>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 3. FORM TAMBAH ARTIKEL -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 md:px-8 py-10">
+        
+        <div class="pb-4 mb-8 border-b-2 border-utama">
+            <span class="text-utama font-bold text-xs tracking-widest uppercase">Formulir Input</span>
+            <h1 class="text-2xl md:text-3xl font-display font-bold text-gray-900 mt-1">Tulis Artikel / Berita Baru</h1>
+        </div>
+
+        <div id="form-alert" class="hidden mb-6 p-4 text-xs font-medium border-l-4"></div>
+
+        <form id="form-tambah-artikel" class="space-y-6">
+            
+            <div>
+                <label for="judul" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Judul Artikel</label>
+                <input type="text" id="judul" name="judul" required placeholder="Masukkan judul berita utama..."
+                    class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label for="kategori" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Kategori Berita</label>
+                    <select id="kategori" name="kategori" required
+                        class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+                        <option value="Kegiatan">Kegiatan / Acara</option>
+                        <option value="Keagamaan">Keagamaan / Kajian</option>
+                        <option value="Kesehatan">Kesehatan & Stunting</option>
+                        <option value="Ekonomi">Ekonomi & UMKM</option>
+                        <option value="Pengumuman">Pengumuman Resmi</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="penulis" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Nama Penulis / Editor</label>
+                    <input type="text" id="penulis" name="penulis" required value="Media PAC Fatayat Kemang"
+                        class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+                </div>
+            </div>
+
+            <div>
+                <label for="gambar" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Foto Sampul (Thumbnail)</label>
+                <input type="file" id="gambar" name="gambar" accept="image/*"
+                    class="w-full px-3 py-2 bg-putih-tema/40 border border-gray-300 text-xs text-gray-600 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-xs file:font-semibold file:bg-abu-hijau file:text-utama hover:file:bg-utama hover:file:text-white transition-all">
+                <span class="text-[11px] text-gray-500 mt-1 block">Format file yang didukung: JPG, PNG, WEBP (Maksimal ukuran proporsional).</span>
+            </div>
+
+            <div>
+                <label for="isi" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Isi Berita Lengkap</label>
+                <textarea id="isi" name="isi" rows="10" required placeholder="Tuliskan isi berita selengkapnya di sini..."
+                    class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors resize-y"></textarea>
+            </div>
+
+            <div class="pt-4 flex items-center gap-4">
+                <button type="submit" id="btn-submit" class="px-8 py-3.5 bg-utama hover:bg-utama-gelap text-white font-semibold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2">
+                    <span id="btn-text">Publikasikan Artikel</span>
+                    <div id="btn-loader" class="hidden btn-loader"></div>
+                </button>
+                <a href="dashboard.html" class="text-xs font-semibold text-gray-600 hover:text-utama uppercase tracking-wider">Batal</a>
+            </div>
+        </form>
+
+    </main>
+
+    <!-- 4. FOOTER ADMIN -->
+    <footer class="bg-abu-hijau border-t-2 border-utama text-gray-600 mt-auto py-4 px-4 text-center text-[11px]">
+        &copy; 2026 Admin Panel PAC Fatayat NU Kecamatan Kemang.
+    </footer>
+
+    <!-- Script Sesi & Logika Admin -->
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
