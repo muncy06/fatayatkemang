@@ -1,8 +1,6 @@
-// Menggunakan window agar tidak terjadi bentrok deklarasi ganda
 window.APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx5Irh4glDXwWrOnh1GxB8KE4jcRvLXnPexIUIveUo5QKgJierdt35z-i9PGu2Ajook/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Pastikan admin sudah login
     const admin = requireAuth();
     if (!admin) return;
 
@@ -21,14 +19,34 @@ document.addEventListener('DOMContentLoaded', () => {
             btnSubmit.disabled = true;
             alertBox.classList.add('hidden');
 
-            const formData = new FormData(formTambah);
-            formData.append('action', 'tambahArtikel');
-            formData.append('token', admin.token);
+            const fileInput = document.getElementById('gambar');
+            let base64Data = "";
+            let fileName = "";
+            let mimeType = "";
+
+            if (fileInput.files && fileInput.files[0]) {
+                const file = fileInput.files[0];
+                fileName = file.name;
+                mimeType = file.type;
+                base64Data = await toBase64(file);
+            }
+
+            const payload = {
+                action: 'tambahArtikel',
+                token: admin.token,
+                judul: document.getElementById('judul').value,
+                kategori: document.getElementById('kategori').value,
+                penulis: document.getElementById('penulis').value,
+                isi: document.getElementById('isi').value,
+                fileData: base64Data,
+                fileName: fileName,
+                mimeType: mimeType
+            };
 
             try {
                 const response = await fetch(window.APPS_SCRIPT_URL, {
                     method: 'POST',
-                    body: formData
+                    body: JSON.stringify(payload)
                 });
                 const result = await response.json();
 
@@ -52,3 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+function toBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = error => reject(error);
+    });
+}
