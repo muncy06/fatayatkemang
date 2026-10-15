@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAC Fatayat NU Kecamatan Kemang</title>
+    
+    <!-- Google Fonts: Inter & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Konfigurasi Warna Sesuai Rumus: #00984a, #FFF2F2, #E8F5E9 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'utama': '#00984a',
+                        'utama-gelap': '#007a3b',
+                        'putih-tema': '#FFF2F2',
+                        'abu-hijau': '#E8F5E9',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .css-loader {
+            border: 2px solid #E8F5E9;
+            border-top: 2px solid #00984a;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .btn-loader {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased font-sans flex flex-col min-h-screen">
+
+    <!-- 1. TOP BAR (Garis Informasi Atas) -->
+    <div class="bg-abu-hijau text-gray-700 text-xs py-2 px-4 md:px-8 border-b border-utama/20">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 md:gap-6">
+                <span>Kecamatan Kemang, Kabupaten Bogor 16310</span>
+                <span class="hidden sm:inline text-utama">|</span>
+                <span>0812-3456-7890</span>
+                <span class="hidden md:inline text-utama">|</span>
+                <span class="hidden md:inline">fatayatkemang@gmail.com</span>
+            </div>
+            <div class="font-semibold text-utama tracking-wide uppercase text-[11px] hidden sm:block">
+                Portal Resmi
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. NAVBAR (Beranda, Profil, Ranting, Galeri, Kontak, Login) -->
+    <nav class="bg-white sticky top-0 z-50 border-b-2 border-utama">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-3.5 flex justify-between items-center">
+            <!-- Brand & Logo Kiri -->
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="assets/img/logo.png" alt="Logo Fatayat NU" class="h-10 md:h-11 w-auto object-contain" onerror="this.src='https://via.placeholder.com/100x100/00984a/ffffff?text=LOGO'">
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-base md:text-lg text-gray-900 leading-none">PAC FATAYAT NU</span>
+                    <span class="text-[11px] font-semibold text-utama tracking-widest uppercase mt-1">Kecamatan Kemang</span>
+                </div>
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex items-center gap-7 text-sm font-medium text-gray-700">
+                <a href="index.html" class="text-utama font-semibold border-b-2 border-utama pb-1">Beranda</a>
+                <a href="#profil" class="hover:text-utama transition-colors pb-1">Profil</a>
+                <a href="#ranting" class="hover:text-utama transition-colors pb-1">Ranting</a>
+                <a href="#galeri" class="hover:text-utama transition-colors pb-1">Galeri</a>
+                <a href="#kontak" class="hover:text-utama transition-colors pb-1">Kontak</a>
+                <a href="admin/login.html" class="bg-utama hover:bg-utama-gelap text-white font-semibold text-xs px-5 py-2.5 transition-colors uppercase tracking-wider">Login</a>
+            </div>
+
+            <!-- Tombol Hamburger Mobile (HP Android/iOS) -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-800 hover:text-utama focus:outline-none border border-gray-200" aria-label="Buka Menu">
+                <svg id="icon-menu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+                <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Daftar Menu Mobile (Muncul Saat Diklik di HP) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 divide-y divide-gray-100 text-sm font-medium">
+            <a href="index.html" class="block px-6 py-3.5 text-utama font-semibold bg-abu-hijau/40">Beranda</a>
+            <a href="#profil" class="mobile-link block px-6 py-3.5 text-gray-700 hover:bg-abu-hijau/40">Profil</a>
+            <a href="#ranting" class="mobile-link block px-6 py-3.5 text-gray-700 hover:bg-abu-hijau/40">Ranting</a>
+            <a href="#galeri" class="mobile-link block px-6 py-3.5 text-gray-700 hover:bg-abu-hijau/40">Galeri</a>
+            <a href="#kontak" class="mobile-link block px-6 py-3.5 text-gray-700 hover:bg-abu-hijau/40">Kontak</a>
+            <div class="p-4 bg-putih-tema/50">
+                <a href="admin/login.html" class="block w-full text-center bg-utama text-white font-semibold py-3 uppercase tracking-wider text-xs">Login Admin</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 3. HERO SECTION (Tanpa Bulatan Logo & Tanpa Kotak Pembungkus) -->
+    <header class="relative w-full py-16 md:py-24 bg-abu-hijau/60 border-b border-utama/30 overflow-hidden">
+        <!-- Gambar Latar Transparan -->
+        <img src="assets/img/bg.jfif" alt="" class="absolute inset-0 w-full h-full object-cover object-center opacity-10 pointer-events-none z-0" onerror="this.style.display='none'">
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
+            <!-- Logo Utuh Tanpa Bulatan di Belakangnya -->
+            <img src="assets/img/logo.png" alt="Logo PAC Fatayat NU Kemang" class="h-28 md:h-36 w-auto object-contain mb-6" onerror="this.src='https://via.placeholder.com/150x150/00984a/ffffff?text=FATAYAT+NU'">
+            
+            <!-- Teks Utama dengan Format Garis Atas-Bawah -->
+            <div class="w-full border-y border-utama/40 py-6 my-2">
+                <h1 class="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl text-gray-900 tracking-tight uppercase">
+                    PAC Fatayat NU Kemang
+                </h1>
+                <p class="text-xs sm:text-sm font-semibold text-utama tracking-widest uppercase mt-2">
+                    Pimpinan Anak Cabang Kecamatan Kemang — Kabupaten Bogor
+                </p>
+            </div>
+
+            <p class="text-xs sm:text-sm md:text-base text-gray-700 max-w-2xl mt-4 leading-relaxed">
+                Mewujudkan perempuan muda Nahdlatul Ulama yang berdaya, bertaqwa, dan berkhidmah untuk agama, bangsa, serta kesejahteraan umat.
+            </p>
+        </div>
+    </header>
+
+    <!-- 4. SECTION BERITA TERBARU (Format Garis Pembatas) -->
+    <main class="w-full max-w-7xl mx-auto px-4 md:px-8 py-14 md:py-20" id="berita">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between pb-4 mb-10 border-b-2 border-utama">
+            <div>
+                <span class="text-utama font-bold text-xs tracking-widest uppercase">Kabar Organisasi</span>
+                <h2 class="text-2xl md:text-3xl font-display font-bold text-gray-900 mt-1">Berita & Kegiatan Terkini</h2>
+            </div>
+            <p class="text-xs text-gray-500 mt-2 sm:mt-0">Publikasi resmi PAC Fatayat NU Kecamatan Kemang</p>
+        </div>
+
+        <!-- Grid Berita dengan Garis Pemisah -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="berita-container">
+            <div class="col-span-full flex flex-col items-center justify-center py-16">
+                <div class="css-loader mb-3"></div>
+                <div class="text-xs uppercase tracking-widest text-gray-500">Memuat Berita...</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 5. SECTION PROFIL (Format Garis Kiri-Kanan & Atas-Bawah) -->
+    <section id="profil" class="w-full bg-putih-tema/60 py-14 md:py-20 border-y border-utama/30">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="pb-4 mb-10 border-b-2 border-utama">
+                <span class="text-utama font-bold text-xs tracking-widest uppercase">Mengenal Organisasi</span>
+                <h2 class="text-2xl md:text-3xl font-display font-bold text-gray-900 mt-1">Profil, Visi & Misi</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                <!-- Kolom Kiri: Sejarah & Deskripsi -->
+                <div class="lg:col-span-5 lg:border-r lg:border-utama/30 lg:pr-10">
+                    <img src="assets/img/bg.jfif" alt="Foto Profil Fatayat" class="w-full h-60 md:h-72 object-cover border-b-4 border-utama mb-6" onerror="this.src='https://via.placeholder.com/800x500/E8F5E9/00984a?text=PAC+Fatayat+NU+Kemang'">
+                    <p class="text-gray-700 text-sm leading-relaxed text-justify">
+                        Pimpinan Anak Cabang (PAC) Fatayat Nahdlatul Ulama Kecamatan Kemang adalah badan otonom perempuan muda NU yang berfokus pada pembinaan akhlak, penguatan peran sosial keagamaan, kesehatan masyarakat, serta kemandirian ekonomi kader di tingkat kecamatan hingga perdesaan.
+                    </p>
+                </div>
+
+                <!-- Kolom Kanan: Visi & Misi Berbasis Garis -->
+                <div class="lg:col-span-7 divide-y divide-utama/30">
+                    <div class="pb-6">
+                        <h3 class="font-display font-bold text-lg text-gray-900 uppercase tracking-wide border-l-4 border-utama pl-3 mb-3">
+                            Visi Organisasi
+                        </h3>
+                        <p class="text-gray-700 text-sm md:text-base leading-relaxed pl-4">
+                            Terwujudnya perempuan muda NU yang bertaqwa, berakhlakul karimah, berdaya guna, dan mandiri dalam kehidupan beragama, bermasyarakat, dan bernegara.
+                        </p>
+                    </div>
+
+                    <div class="pt-6">
+                        <h3 class="font-display font-bold text-lg text-gray-900 uppercase tracking-wide border-l-4 border-utama pl-3 mb-4">
+                            Misi & Fokus Gerakan
+                        </h3>
+                        <ul class="space-y-3 pl-4 text-sm text-gray-700">
+                            <li class="flex items-start gap-3">
+                                <span class="font-bold text-utama">01.</span>
+                                <span>Memperkuat pemahaman dan pengamalan Islam Ahlussunnah wal Jama'ah an-Nahdliyah.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="font-bold text-utama">02.</span>
+                                <span>Menggerakkan kemandirian ekonomi kader melalui pembinaan UMKM dan koperasi.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="font-bold text-utama">03.</span>
+                                <span>Berperan aktif dalam program kesehatan keluarga dan penurunan angka stunting anak di Kecamatan Kemang.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="font-bold text-utama">04.</span>
+                                <span>Memperkokoh konsolidasi organisasi hingga tingkat Pimpinan Ranting (Desa) dan Anak Ranting.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. SECTION RANTING (Tabel/Grid Garis Tanpa Kotak Bungkusan) -->
+    <section id="ranting" class="w-full bg-white py-14 md:py-20">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between pb-4 mb-10 border-b-2 border-utama">
+                <div>
+                    <span class="text-utama font-bold text-xs tracking-widest uppercase">Struktur Wilayah</span>
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-gray-900 mt-1">Pimpinan Ranting Se-Kecamatan Kemang</h2>
+                </div>
+                <p class="text-xs text-gray-500 mt-2 sm:mt-0">Persebaran kepengurusan tingkat desa/kelurahan</p>
+            </div>
+
+            <!-- Grid Garis Menyatu (Atas-Bawah & Kiri-Kanan) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border-t border-l border-utama/30">
+                <div class="p-5 border-r border-b border-utama/30 hover:bg-abu-hijau/50 transition-colors flex justify-between items-center">
+                    <div>
+                        <span class="text-[11px] font-bold text-utama uppercase tracking-wider">Ranting 01</span>
+                        <h3 class="font-display font-bold text-base text-gray-900 mt-0.5">PR Fatayat NU Kemang</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 border-l border-utama/30 pl-3">Desa Kemang</span>
+                </div>
+
+                <div class="p-5 border-r border-b border-utama/30 hover:bg-abu-hijau/50 transition-colors flex justify-between items-center">
+                    <div>
+                        <span class="text-[11px] font-bold text-utama uppercase tracking-wider">Ranting 02</span>
+                        <h3 class="font-display font-bold text-base text-gray-900 mt-0.5">PR Fatayat NU Tegal</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 border-l border-utama/30 pl-3">Desa Tegal</span>
+                </div>
+
+                <div class="p-5 border-r border-b border-utama/30 hover:bg-abu-hijau/50 transition-colors flex justify-between items-center">
+                    <div>
+                        <span class="text-[11px] font-bold text-utama uppercase tracking-wider">Ranting 03</span>
+                        <h3 class="font-display font-bold text-base text-gray-900 mt-0.5">PR Fatayat NU Jampang</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 border-l border-utama/30 pl-3">Desa Jampang</span>
+                </div>
+
+                <div class="p-5 border-r border-b border-utama/30 hover:bg-abu-hijau/50 transition-colors flex justify-between items-center">
+                    <div>
+                        <span class="text-[11px] font-bold text-utama uppercase tracking-wider">Ranting 04</span>
+                        <h3 class="font-display font-bold text-base text-gray-900 mt-0.5">PR Fatayat NU Pabuaran</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 border-l border-utama/30 pl-3">Desa Pabuaran</span>
+                </div>
+
+                <div class="p-5 border-r border-b border-utama/30 hover:bg-abu-hijau/50 transition-colors flex justify-between items-center">
+                    <div>
+                        <span class="text-[11px] font-bold text-utama uppercase tracking-wider">Ranting 05</span>
+                        <h3 class="font-display font-bold text-base text-gray-900 mt-0.5">PR Fatayat NU Pondok Udik</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 border-l border-utama/30 pl-3">Desa Pondok Udik</span>
+                </div>
+
+                <div class="p-5 border-r border-b border-utama/30 hover:bg-abu-hijau/50 transition-colors flex justify-between items-center">
+                    <div>
+                        <span class="text-[11px] font-bold text-utama uppercase tracking-wider">Ranting 06</span>
+                        <h3 class="font-display font-bold text-base text-gray-900 mt-0.5">PR Fatayat NU Semplak Barat</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 border-l border-utama/30 pl-3">Desa Semplak Barat</span>
+                </div>
+
+                <div class="p-5 border-r border-b border-utama/30 hover:bg-abu-hijau/50 transition-colors flex justify-between items-center">
+                    <div>
+                        <span class="text-[11px] font-bold text-utama uppercase tracking-wider">Ranting 07</span>
+                        <h3 class="font-display font-bold text-base text-gray-900 mt-0.5">PR Fatayat NU Bojong</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 border-l border-utama/30 pl-3">Desa Bojong</span>
+                </div>
+
+                <div class="p-5 border-r border-b border-utama/30 hover:bg-abu-hijau/50 transition-colors flex justify-between items-center">
+                    <div>
+                        <span class="text-[11px] font-bold text-utama uppercase tracking-wider">Ranting 08</span>
+                        <h3 class="font-display font-bold text-base text-gray-900 mt-0.5">PR Fatayat NU Parakan Jaya</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 border-l border-utama/30 pl-3">Desa Parakan Jaya</span>
+                </div>
+
+                <div class="p-5 border-r border-b border-utama/30 hover:bg-abu-hijau/50 transition-colors flex justify-between items-center">
+                    <div>
+                        <span class="text-[11px] font-bold text-utama uppercase tracking-wider">Ranting 09</span>
+                        <h3 class="font-display font-bold text-base text-gray-900 mt-0.5">PR Fatayat NU Atang Senjaya</h3>
+                    </div>
+                    <span class="text-xs text-gray-500 border-l border-utama/30 pl-3">Kel. Atang Senjaya</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. SECTION GALERI KEGIATAN -->
+    <section id="galeri" class="w-full bg-abu-hijau/50 py-14 md:py-20 border-y border-utama/30">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between pb-4 mb-10 border-b-2 border-utama">
+                <div>
+                    <span class="text-utama font-bold text-xs tracking-widest uppercase">Arsip Visual</span>
+                    <h2 class="text-2xl md:text-3xl font-display font-bold text-gray-900 mt-1">Galeri Dokumentasi</h2>
+                </div>
+                <p class="text-xs text-gray-600 mt-2 sm:mt-0">Rekam jejak kegiatan pengurus dan kader</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="galeri-container">
+                <div class="col-span-full flex flex-col items-center justify-center py-12">
+                    <div class="css-loader mb-3"></div>
+                    <div class="text-xs uppercase tracking-widest text-gray-500">Memuat Galeri...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. SECTION KONTAK (Format Garis Tanpa Kotak Bungkusan) -->
+    <section id="kontak" class="w-full bg-white py-14 md:py-20">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="pb-4 mb-10 border-b-2 border-utama">
+                <span class="text-utama font-bold text-xs tracking-widest uppercase">Layanan & Informasi</span>
+                <h2 class="text-2xl md:text-3xl font-display font-bold text-gray-900 mt-1">Hubungi Sekretariat</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+                <!-- Info Sekretariat (Garis Kiri-Kanan) -->
+                <div class="lg:col-span-5 lg:border-r lg:border-utama/30 lg:pr-10 space-y-6">
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Silakan hubungi kami untuk keperluan surat-menyurat, koordinasi kegiatan ranting, maupun kemitraan program kerja.
+                    </p>
+                    <div class="divide-y divide-gray-200 border-y border-gray-200 text-sm">
+                        <div class="py-3.5 flex justify-between gap-4">
+                            <span class="font-semibold text-gray-900">Alamat</span>
+                            <span class="text-gray-600 text-right">Kec. Kemang, Kab. Bogor, Jawa Barat 16310</span>
+                        </div>
+                        <div class="py-3.5 flex justify-between gap-4">
+                            <span class="font-semibold text-gray-900">Email Resmi</span>
+                            <span class="text-gray-600 text-right">fatayatkemang@gmail.com</span>
+                        </div>
+                        <div class="py-3.5 flex justify-between gap-4">
+                            <span class="font-semibold text-gray-900">Instagram</span>
+                            <a href="https://instagram.com/fatayat.kemang.official" target="_blank" class="text-utama font-medium hover:underline text-right">@fatayat.kemang.official</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulir Pesan (Input Garis Bawah Minimalis) -->
+                <div class="lg:col-span-7">
+                    <form id="form-kontak" class="space-y-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label for="nama" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Nama Lengkap</label>
+                                <input type="text" id="nama" name="nama" required placeholder="Masukkan nama Anda" class="w-full px-3 py-2.5 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label for="no_wa" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Nomor WhatsApp</label>
+                                <input type="tel" id="no_wa" name="no_wa" required placeholder="08xxxxxxxxxx" class="w-full px-3 py-2.5 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="pesan" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Isi Pesan / Keperluan</label>
+                            <textarea id="pesan" name="pesan" rows="4" required placeholder="Tuliskan pesan atau keperluan Anda di sini..." class="w-full px-3 py-2.5 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors resize-y"></textarea>
+                        </div>
+
+                        <div id="status-pesan" class="hidden p-3.5 text-xs font-medium border-l-4"></div>
+
+                        <div>
+                            <button type="submit" id="btn-submit" class="w-full sm:w-auto px-8 py-3.5 bg-utama hover:bg-utama-gelap text-white font-semibold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2">
+                                <span id="btn-text">Kirim Pesan</span>
+                                <div id="btn-loader" class="hidden btn-loader"></div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. FOOTER -->
+    <footer class="bg-abu-hijau border-t-2 border-utama text-gray-700 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-10 flex flex-col md:flex-row justify-between items-center gap-6 text-xs">
+            <div class="flex items-center gap-3">
+                <img src="assets/img/logo.png" alt="Logo" class="h-9 w-auto object-contain" onerror="this.style.display='none'">
+                <div>
+                    <span class="font-display font-bold text-sm text-gray-900 block">PAC FATAYAT NU KECAMATAN KEMANG</span>
+                    <span class="text-gray-600">Kabupaten Bogor — Provinsi Jawa Barat</span>
+                </div>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 font-medium text-gray-700">
+                <a href="index.html" class="hover:text-utama">Beranda</a>
+                <a href="#profil" class="hover:text-utama">Profil</a>
+                <a href="#ranting" class="hover:text-utama">Ranting</a>
+                <a href="#galeri" class="hover:text-utama">Galeri</a>
+                <a href="#kontak" class="hover:text-utama">Kontak</a>
+                <a href="admin/login.html" class="text-utama font-semibold hover:underline">Login</a>
+            </div>
+        </div>
+        <div class="border-t border-utama/20 py-4 px-4 text-center text-[11px] text-gray-600 bg-putih-tema/50">
+            &copy; 2026 Pimpinan Anak Cabang Fatayat Nahdlatul Ulama Kecamatan Kemang.
+        </div>
+    </footer>
+
+    <!-- 10. SCRIPT JAVASCRIPT -->
+    <script>
+        // MASUKKAN URL DEPLOYMENT APPS SCRIPT ANDA DI SINI
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx5Irh4glDXwWrOnh1GxB8KE4jcRvLXnPexIUIveUo5QKgJierdt35z-i9PGu2Ajook/exec';
+
+        // Toggle Menu Hamburger untuk HP (Android/iOS)
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconMenu = document.getElementById('icon-menu');
+        const iconClose = document.getElementById('icon-close');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            iconMenu.classList.toggle('hidden');
+            iconClose.classList.toggle('hidden');
+        });
+
+        // Tutup menu otomatis saat link diklik di HP
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                iconMenu.classList.remove('hidden');
+                iconClose.classList.add('hidden');
+            });
+        });
+
+        // 1. Fetch Berita (Format Garis Tanpa Card Shadow)
+        async function fetchBerita() {
+            const container = document.getElementById('berita-container');
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=berita`);
+                const data = await response.json();
+                
+                container.innerHTML = '';
+                if(!data || data.length === 0 || !data[0].Judul) {
+                    container.innerHTML = '<div class="col-span-full py-10 text-center text-gray-500 text-sm border-y border-gray-200">Belum ada berita yang dipublikasikan.</div>';
+                    return;
+                }
+
+                data.reverse().forEach(item => {
+                    if(!item.Judul) return;
+                    let tgl = new Date(item.Tanggal).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'});
+                    if(tgl === 'Invalid Date') tgl = item.Tanggal;
+                    let imgUrl = item.Link_Gambar ? item.Link_Gambar : 'https://via.placeholder.com/600x400/E8F5E9/00984a?text=Fatayat+NU';
+
+                    const beritaHTML = `
+                        <article class="flex flex-col border-b-2 border-gray-200 hover:border-utama pb-6 transition-colors group">
+                            <div class="overflow-hidden h-52 bg-abu-hijau mb-4 border-b-2 border-utama">
+                                <img src="${imgUrl}" alt="${item.Judul}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/600x400/E8F5E9/00984a?text=Dokumentasi'">
+                            </div>
+                            <div class="flex items-center justify-between text-[11px] font-semibold uppercase tracking-wider text-utama mb-2">
+                                <span>${item.Kategori || 'Warta'}</span>
+                                <span class="text-gray-400 font-normal">${tgl}</span>
+                            </div>
+                            <h3 class="font-display font-bold text-lg text-gray-900 mb-2 leading-snug group-hover:text-utama transition-colors">
+                                ${item.Judul}
+                            </h3>
+                            <p class="text-gray-600 text-xs leading-relaxed flex-grow line-clamp-3 mb-4">
+                                ${item.Cuplikan || ''}
+                            </p>
+                            <a href="artikel.html?id=${item.ID || ''}" class="text-gray-900 group-hover:text-utama font-bold text-xs uppercase tracking-wider inline-flex items-center gap-1.5 pt-2 border-t border-gray-100">
+                                <span>Baca Selengkapnya</span>
+                                <span>&rarr;</span>
+                            </a>
+                        </article>
+                    `;
+                    container.innerHTML += beritaHTML;
+                });
+            } catch (error) {
+                container.innerHTML = '<div class="col-span-full py-6 px-4 text-xs text-gray-700 bg-putih-tema border-l-4 border-utama">Menunggu koneksi database berita (Pastikan URL Apps Script sudah terpasang).</div>';
+            }
+        }
+
+        // 2. Fetch Galeri
+        async function fetchGaleri() {
+            const container = document.getElementById('galeri-container');
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=galeri`);
+                const data = await response.json();
+                
+                container.innerHTML = '';
+                if(!data || data.length === 0 || !data[0].Nama_Kegiatan) {
+                    container.innerHTML = '<div class="col-span-full py-10 text-center text-gray-500 text-sm border-y border-utama/20">Belum ada dokumentasi galeri.</div>';
+                    return;
+                }
+
+                data.reverse().forEach(item => {
+                    if(!item.Nama_Kegiatan) return;
+                    let imgUrl = item.Link_Gambar ? item.Link_Gambar : 'https://via.placeholder.com/600x600/E8F5E9/00984a?text=Galeri';
+
+                    const galeriHTML = `
+                        <div class="group bg-white border border-utama/30 flex flex-col">
+                            <div class="overflow-hidden aspect-square bg-gray-100">
+                                <img src="${imgUrl}" alt="${item.Nama_Kegiatan}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/600x600/E8F5E9/00984a?text=Galeri'">
+                            </div>
+                            <div class="p-3 border-t border-utama/30 bg-white">
+                                <span class="block text-[10px] font-bold text-utama uppercase tracking-wider">${item.Bidang || 'Kegiatan'}</span>
+                                <h3 class="text-gray-900 font-medium text-xs mt-0.5 line-clamp-1">${item.Nama_Kegiatan}</h3>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += galeriHTML;
+                });
+            } catch (error) {
+                container.innerHTML = '<div class="col-span-full py-6 px-4 text-xs text-gray-700 bg-putih-tema border-l-4 border-utama">Menunggu koneksi database galeri.</div>';
+            }
+        }
+
+        // 3. Jalankan Saat Halaman Dimuat
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchBerita();
+            fetchGaleri();
+
+            const formKontak = document.getElementById('form-kontak');
+            const btnSubmit = document.getElementById('btn-submit');
+            const btnText = document.getElementById('btn-text');
+            const btnLoader = document.getElementById('btn-loader');
+            const statusPesan = document.getElementById('status-pesan');
+
+            formKontak.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                btnText.textContent = 'Mengirim...';
+                btnLoader.classList.remove('hidden');
+                btnSubmit.disabled = true;
+                statusPesan.classList.add('hidden');
+
+                const formData = new FormData(formKontak);
+
+                try {
+                    const response = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: formData });
+                    const result = await response.json();
+
+                    if(result.status === 'success') {
+                        statusPesan.textContent = 'Pesan Anda telah diterima oleh sekretariat.';
+                        statusPesan.className = 'block p-3.5 text-xs font-medium bg-abu-hijau text-gray-900 border-l-4 border-utama';
+                        formKontak.reset();
+                    } else {
+                        throw new Error('Gagal');
+                    }
+                } catch (error) {
+                    statusPesan.textContent = 'Gagal mengirim pesan. Periksa koneksi atau URL server.';
+                    statusPesan.className = 'block p-3.5 text-xs font-medium bg-putih-tema text-red-700 border-l-4 border-red-600';
+                } finally {
+                    btnText.textContent = 'Kirim Pesan';
+                    btnLoader.classList.add('hidden');
+                    btnSubmit.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Artikel - PAC Fatayat NU Kemang</title>
+    
+    <!-- Google Fonts: Inter & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Konfigurasi Warna Sesuai Rumus: #00984a, #FFF2F2, #E8F5E9 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'utama': '#00984a',
+                        'utama-gelap': '#007a3b',
+                        'putih-tema': '#FFF2F2',
+                        'abu-hijau': '#E8F5E9',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .css-loader {
+            border: 2px solid #E8F5E9;
+            border-top: 2px solid #00984a;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            animation: spin 0.8s linear infinite;
+        }
+        .btn-loader {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased font-sans flex flex-col min-h-screen">
+
+    <!-- 1. TOP BAR ADMIN -->
+    <div class="bg-abu-hijau text-gray-700 text-xs py-2 px-4 md:px-8 border-b border-utama/20">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <span class="font-semibold text-utama uppercase tracking-wider">Panel Pengurus / Edit Artikel</span>
+            <a href="dashboard.html" class="font-medium text-gray-800 hover:underline">&larr; Kembali ke Dashboard</a>
+        </div>
+    </div>
+
+    <!-- 2. NAVBAR ADMIN -->
+    <nav class="bg-white sticky top-0 z-50 border-b-2 border-utama">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-3.5 flex justify-between items-center">
+            <a href="dashboard.html" class="flex items-center gap-3">
+                <img src="../assets/img/logo.png" alt="Logo Fatayat" class="h-10 w-auto object-contain" onerror="this.src='https://via.placeholder.com/100x100/00984a/ffffff?text=LOGO'">
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-base text-gray-900 leading-none">MODIFIKASI ARTIKEL</span>
+                    <span class="text-[10px] font-semibold text-utama tracking-widest uppercase mt-1">PAC Fatayat NU Kemang</span>
+                </div>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 3. FORM EDIT ARTIKEL -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 md:px-8 py-10">
+        
+        <div class="pb-4 mb-8 border-b-2 border-utama">
+            <span class="text-utama font-bold text-xs tracking-widest uppercase">Pembaruan Konten</span>
+            <h1 class="text-2xl md:text-3xl font-display font-bold text-gray-900 mt-1">Sunting Artikel Berita</h1>
+        </div>
+
+        <div id="form-alert" class="hidden mb-6 p-4 text-xs font-medium border-l-4"></div>
+
+        <form id="form-edit-artikel" class="space-y-6">
+            <input type="hidden" id="artikel-id" name="id">
+
+            <div>
+                <label for="judul" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Judul Artikel</label>
+                <input type="text" id="judul" name="judul" required
+                    class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label for="kategori" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Kategori Berita</label>
+                    <select id="kategori" name="kategori" required
+                        class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+                        <option value="Kegiatan">Kegiatan / Acara</option>
+                        <option value="Keagamaan">Keagamaan / Kajian</option>
+                        <option value="Kesehatan">Kesehatan & Stunting</option>
+                        <option value="Ekonomi">Ekonomi & UMKM</option>
+                        <option value="Pengumuman">Pengumuman Resmi</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="penulis" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Nama Penulis / Editor</label>
+                    <input type="text" id="penulis" name="penulis" required
+                        class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+                </div>
+            </div>
+
+            <div>
+                <label for="gambar" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Ganti Foto Sampul (Opsional)</label>
+                <input type="file" id="gambar" name="gambar" accept="image/*"
+                    class="w-full px-3 py-2 bg-putih-tema/40 border border-gray-300 text-xs text-gray-600 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-xs file:font-semibold file:bg-abu-hijau file:text-utama hover:file:bg-utama hover:file:text-white transition-all">
+                <span class="text-[11px] text-gray-500 mt-1 block">Biarkan kosong jika tidak ingin mengganti foto sampul yang sudah ada.</span>
+            </div>
+
+            <div>
+                <label for="isi" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Isi Berita Lengkap</label>
+                <textarea id="isi" name="isi" rows="10" required
+                    class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors resize-y"></textarea>
+            </div>
+
+            <div class="pt-4 flex items-center gap-4">
+                <button type="submit" id="btn-submit" class="px-8 py-3.5 bg-utama hover:bg-utama-gelap text-white font-semibold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2">
+                    <span id="btn-text">Simpan Perubahan</span>
+                    <div id="btn-loader" class="hidden btn-loader"></div>
+                </button>
+                <a href="dashboard.html" class="text-xs font-semibold text-gray-600 hover:text-utama uppercase tracking-wider">Batal</a>
+            </div>
+        </form>
+
+    </main>
+
+    <!-- 4. FOOTER ADMIN -->
+    <footer class="bg-abu-hijau border-t-2 border-utama text-gray-600 mt-auto py-4 px-4 text-center text-[11px]">
+        &copy; 2026 Admin Panel PAC Fatayat NU Kecamatan Kemang.
+    </footer>
+
+    <!-- Script Logika Edit -->
+    <script src="js/auth.js"></script>
+    <script>
+        const admin = requireAuth();
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/GANTI_DENGAN_URL_ANDA/exechttps://script.google.com/macros/s/AKfycbx5Irh4glDXwWrOnh1GxB8KE4jcRvLXnPexIUIveUo5QKgJierdt35z-i9PGu2Ajook/exec';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const artikelId = urlParams.get('id');
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!artikelId) {
+                alert('ID Artikel tidak valid.');
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            // Ambil data artikel untuk di-isi ke dalam form
+            try {
+                if (APPS_SCRIPT_URL.includes('GANTI_DENGAN_URL_ANDA')) {
+                    // Data simulasi lokal
+                    document.getElementById('artikel-id').value = artikelId;
+                    document.getElementById('judul').value = 'Contoh Artikel: Pelantikan Pengurus Ranting Kemang';
+                    document.getElementById('kategori').value = 'Kegiatan';
+                    document.getElementById('penulis').value = 'Admin Fatayat';
+                    document.getElementById('isi').value = 'Ini adalah isi berita simulasi untuk keperluan uji coba tata letak halaman edit artikel.';
+                    return;
+                }
+
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=berita`);
+                const data = await response.json();
+                const artikel = data.find(item => String(item.ID || item.id_artikel) === String(artikelId));
+
+                if (artikel) {
+                    document.getElementById('artikel-id').value = artikelId;
+                    document.getElementById('judul').value = artikel.Judul || artikel.judul || '';
+                    document.getElementById('kategori').value = artikel.Kategori || artikel.kategori || 'Kegiatan';
+                    document.getElementById('penulis').value = artikel.Penulis || artikel.penulis || '';
+                    document.getElementById('isi').value = artikel.Isi_Berita || artikel.isi_konten || '';
+                } else {
+                    alert('Artikel tidak ditemukan di server.');
+                    window.location.href = 'dashboard.html';
+                }
+            } catch (error) {
+                console.error('Gagal memuat artikel:', error);
+            }
+
+            // Tangani Submit Form Edit
+            const formEdit = document.getElementById('form-edit-artikel');
+            formEdit.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const btnSubmit = document.getElementById('btn-submit');
+                const btnText = document.getElementById('btn-text');
+                const btnLoader = document.getElementById('btn-loader');
+                const alertBox = document.getElementById('form-alert');
+
+                btnText.textContent = 'Menyimpan...';
+                btnLoader.classList.remove('hidden');
+                btnSubmit.disabled = true;
+                alertBox.classList.add('hidden');
+
+                const formData = new FormData(formEdit);
+                formData.append('action', 'editArtikel');
+                formData.append('token', admin.token);
+
+                try {
+                    if (APPS_SCRIPT_URL.includes('GANTI_DENGAN_URL_ANDA')) {
+                        alert('Simulasi Lokal: Perubahan berhasil disimpan!');
+                        window.location.href = 'dashboard.html';
+                        return;
+                    }
+
+                    const response = await fetch(APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+
+                    if (result.status === 'success') {
+                        alertBox.textContent = 'Perubahan artikel berhasil disimpan!';
+                        alertBox.className = 'block mb-6 p-4 text-xs font-medium bg-abu-hijau text-gray-900 border-l-4 border-utama';
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 1500);
+                    } else {
+                        throw new Error(result.message || 'Gagal memperbarui artikel.');
+                    }
+                } catch (error) {
+                    alertBox.textContent = error.message || 'Terjadi kesalahan jaringan.';
+                    alertBox.className = 'block mb-6 p-4 text-xs font-medium bg-putih-tema text-red-700 border-l-4 border-red-600';
+                    btnText.textContent = 'Simpan Perubahan';
+                    btnLoader.classList.add('hidden');
+                    btnSubmit.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
