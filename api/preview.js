@@ -13,41 +13,41 @@ export default async function handler(req, res) {
       return res.status(404).send('<h3>Artikel tidak ditemukan</h3>');
     }
 
+    const itemSlug = encodeURIComponent(String(artikel.slug || artikel.ID || slug).trim());
     const judul = artikel.judul || artikel.Judul || 'PAC Fatayat NU Kemang';
     const isi = artikel.konte || artikel.Isi_Berita || artikel.ringkasan || '';
     const deskripsi = String(isi).replace(/<[^>]*>?/gm, '').substring(0, 150) + '...';
     const gambar = artikel.gambar_url || artikel.Link_Gambar || 'https://via.placeholder.com/800x450/00984a/ffffff?text=Fatayat+NU';
-    const targetUrl = `https://fatayatkemang.vercel.app/artikel.html?slug=${slug}`;
+
+    // PENTING: og:url harus menggunakan previewUrl agar Facebook tidak pindah ke artikel.html
+    const previewUrl = `https://fatayatkemang.vercel.app/api/preview?slug=${itemSlug}`;
+    const targetUrl = `https://fatayatkemang.vercel.app/artikel.html?slug=${itemSlug}`;
 
     const userAgent = req.headers['user-agent'] || '';
-    const isBot = /whatsapp|facebookexternalhit|twitterbot|linkedinbot|slackbot|telegrambot/i.test(userAgent);
+    const isBot = /whatsapp|facebookexternalhit|facebot|meta-externalagent|twitterbot|linkedinbot|slackbot|telegrambot/i.test(userAgent);
 
-    // Kirim HTML langsung berisi Meta Tag OG agar dibaca sempurna oleh Bot Facebook & WhatsApp
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'no-store, max-age=0');
-    return res.status(200).send(`
-      <!DOCTYPE html>
-      <html lang="id">
-      <head>
-          <meta charset="UTF-8">
-          <title>${judul}</title>
-          <meta name="description" content="${deskripsi}">
-          <meta property="og:type" content="article">
-          <meta property="og:site_name" content="PAC Fatayat NU Kemang">
-          <meta property="og:title" content="${judul}">
-          <meta property="og:description" content="${deskripsi}">
-          <meta property="og:image" content="${gambar}">
-          <meta property="og:url" content="${targetUrl}">
-          <meta name="twitter:card" content="summary_large_image">
-          ${!isBot ? `<meta http-equiv="refresh" content="0;url=${targetUrl}">` : ''}
-      </head>
-      <body>
-          <h1>${judul}</h1>
-          <p>${deskripsi}</p>
-          ${!isBot ? `<script>window.location.href = "${targetUrl}";</script>` : ''}
-      </body>
-      </html>
-    `);
+    return res.status(200).send(`<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>${judul}</title>
+    <meta name="description" content="${deskripsi}">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="PAC Fatayat NU Kemang">
+    <meta property="og:title" content="${judul}">
+    <meta property="og:description" content="${deskripsi}">
+    <meta property="og:image" content="${gambar}">
+    <meta property="og:url" content="${previewUrl}">
+    <meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+    <h1>${judul}</h1>
+    <p>${deskripsi}</p>
+    ${!isBot ? `<script>window.location.replace("${targetUrl}");</script>` : ''}
+</body>
+</html>`);
 
   } catch (error) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
