@@ -19,12 +19,10 @@ export default async function handler(req, res) {
     const gambar = artikel.gambar_url || artikel.Link_Gambar || 'https://via.placeholder.com/800x450/00984a/ffffff?text=Fatayat+NU';
     const targetUrl = `https://fatayatkemang.vercel.app/artikel.html?slug=${slug}`;
 
-    // Deteksi apakah yang akses adalah Bot Sosial Media atau Pengguna Biasa
     const userAgent = req.headers['user-agent'] || '';
     const isBot = /whatsapp|facebookexternalhit|twitterbot|linkedinbot|slackbot|telegrambot/i.test(userAgent);
 
     if (isBot) {
-      // Jika Bot (Facebook / WhatsApp), berikan halaman khusus dengan Meta Tag OG yang lengkap
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       return res.status(200).send(`
         <!DOCTYPE html>
@@ -48,7 +46,6 @@ export default async function handler(req, res) {
         </html>
       `);
     } else {
-      // Jika Manusia/Pengguna biasa yang klik link, alihkan langsung menggunakan Redirect Server (302)
       res.setHeader('Cache-Control', 'no-store, max-age=0');
       return res.redirect(302, targetUrl);
     }
