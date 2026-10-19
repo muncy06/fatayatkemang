@@ -82,8 +82,7 @@
         </div>
     </div>
 
-    <!-- 2. NAVBAR UTAMA (LENGKAP: Beranda, Berita, Ranting, Galeri, Login) -->
-<!-- 2. NAVBAR UTAMA (DENGAN RESPONSIVE HAMBURGER MENU MOBILE) -->
+    <!-- 2. NAVBAR UTAMA (DENGAN RESPONSIVE HAMBURGER MENU MOBILE) -->
     <nav class="bg-white sticky top-0 z-50 border-b-2 border-utama shadow-sm">
         <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3 group">
@@ -137,7 +136,7 @@
         }
     </script>
 
-    <!-- 3. HERO SECTION (DENGAN BACKGROUND ASSETS bg.jfif SESUAI TEMA ASLI) -->
+    <!-- 3. HERO SECTION (DENGAN BACKGROUND ASSETS bg.jfif TANPA LINGKARAN & UKURAN LOGO DIATUR) -->
     <header class="relative w-full py-24 md:py-32 hero-bg text-white border-b-2 border-utama/30 overflow-hidden shadow-inner">
         <div class="relative z-10 max-w-5xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
             <div class="mb-6">
@@ -203,40 +202,20 @@
         </div>
     </main>
 
-    <!-- 6. SECTION RANTING (WILAYAH KADERISASI) -->
+    <!-- 6. SECTION RANTING (DINAMIS DARI GOOGLE SHEETS) -->
     <section class="bg-abu-hijau/50 py-16 md:py-20 border-t-2 border-utama/20" id="ranting">
         <div class="max-w-7xl mx-auto px-4 md:px-8">
             <div class="text-center mb-12">
                 <span class="text-utama font-bold text-xs tracking-widest uppercase block mb-1">Wilayah Kerja</span>
-                <h2 class="text-2xl md:text-3xl font-display font-extrabold text-gray-900">Pimpinan Ranting Se-Kecamatan Kemang</h2>
+                <h2 class="text-2xl md:text-3xl font-display font-extrabold text-gray-900">Pimpinan Ranting & Anak Ranting Se-Kecamatan Kemang</h2>
                 <p class="text-gray-600 text-xs md:text-sm max-w-2xl mx-auto mt-3">
-                    PAC Fatayat NU Kecamatan Kemang membawahi berbagai pimpinan ranting di tingkat desa yang aktif membina keagamaan dan sosial kemasyarakatan.
+                    Daftar wilayah kerja Pimpinan Ranting dan Anak Ranting di bawah naungan PAC Fatayat NU Kecamatan Kemang yang dimuat langsung dari database.
                 </p>
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 text-center">
-                <div class="bg-white p-4 border border-gray-200 shadow-sm rounded">
-                    <span class="font-display font-bold text-sm text-gray-900 block">Ranting Kemang</span>
-                    <span class="text-[11px] text-utama mt-1 block">Kec. Kemang</span>
-                </div>
-                <div class="bg-white p-4 border border-gray-200 shadow-sm rounded">
-                    <span class="font-display font-bold text-sm text-gray-900 block">Ranting Parakan</span>
-                    <span class="text-[11px] text-utama mt-1 block">Kec. Kemang</span>
-                </div>
-                <div class="bg-white p-4 border border-gray-200 shadow-sm rounded">
-                    <span class="font-display font-bold text-sm text-gray-900 block">Ranting Jampang</span>
-                    <span class="text-[11px] text-utama mt-1 block">Kec. Kemang</span>
-                </div>
-                <div class="bg-white p-4 border border-gray-200 shadow-sm rounded">
-                    <span class="font-display font-bold text-sm text-gray-900 block">Ranting Tegal</span>
-                    <span class="text-[11px] text-utama mt-1 block">Kec. Kemang</span>
-                </div>
-                <div class="bg-white p-4 border border-gray-200 shadow-sm rounded">
-                    <span class="font-display font-bold text-sm text-gray-900 block">Ranting Pondok Udik</span>
-                    <span class="text-[11px] text-utama mt-1 block">Kec. Kemang</span>
-                </div>
-                <div class="bg-white p-4 border border-gray-200 shadow-sm rounded">
-                    <span class="font-display font-bold text-sm text-gray-900 block">Ranting Atang Senjaya</span>
-                    <span class="text-[11px] text-utama mt-1 block">Kec. Kemang</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" id="ranting-container">
+                <div class="col-span-full flex flex-col items-center justify-center py-12">
+                    <div class="css-loader mb-3"></div>
+                    <div class="text-xs font-semibold uppercase tracking-widest text-gray-500">Memuat Data Ranting dari Spreadsheet...</div>
                 </div>
             </div>
         </div>
@@ -275,13 +254,14 @@
         </div>
     </section>
 
-    <!-- 8. SECTION PROFIL / TENTANG KAMI -->
+    <!-- 8. SECTION PROFIL / TENTANG KAMI & SUSUNAN KEPENGURUSAN -->
     <section class="bg-abu-hijau py-16 md:py-20 border-t-2 border-utama/30" id="profil">
         <div class="max-w-5xl mx-auto px-4 md:px-8">
             <div class="text-center mb-10">
                 <span class="text-utama font-bold text-xs tracking-widest uppercase block mb-1">Mengenal Lebih Dekat</span>
                 <h2 class="text-2xl md:text-3xl font-display font-extrabold text-gray-900">Tentang PAC Fatayat NU Kemang</h2>
             </div>
+            
             <div class="bg-white p-8 md:p-10 border-l-4 border-utama shadow-sm space-y-4 text-sm md:text-base text-gray-700 leading-relaxed">
                 <p>
                     <strong>Pimpinan Anak Cabang (PAC) Fatayat Nahdlatul Ulama (NU) Kecamatan Kemang</strong> adalah wadah organisasi keperempuanan pemudi Islam berhaluan Ahlussunnah wal Jamaah yang berkedudukan di wilayah Kecamatan Kemang, Kabupaten Bogor.
@@ -292,6 +272,21 @@
                 <p>
                     Melalui portal website resmi ini, seluruh program kerja, kegiatan sosial kemasyarakatan, majelis taklim, dan agenda kaderisasi dipublikasikan secara transparan kepada seluruh anggota dan masyarakat luas.
                 </p>
+
+                <!-- KOTAK INFORMASI SUSUNAN KEPENGURUSAN & TOMBOL LIHAT SK -->
+                <div class="mt-8 pt-6 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-6 bg-abu-hijau/30 p-6 rounded-lg border">
+                    <div class="space-y-1 text-center sm:text-left">
+                        <h4 class="font-display font-bold text-base text-gray-900">Susunan Pengurus PAC Fatayat NU Kemang (2022–2026)</h4>
+                        <p class="text-xs text-gray-600">Dipimpin oleh Sahabat <strong class="text-gray-900">Shovi Sholawhiyah Humairo, M.H.</strong> (Ketua) bersama jajaran pengurus harian dan bidang-bidang.</p>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <a href="https://lh3.googleusercontent.com/d/1Ra1BVVwb2rPpbFPNYfT5v58Iieb0ZmMU" target="_blank" class="inline-flex items-center gap-2 bg-utama hover:bg-utama-gelap text-white font-display font-bold text-xs uppercase tracking-wider px-6 py-3 rounded shadow-md transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                            <span>View</span>
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -324,7 +319,7 @@
         </div>
     </footer>
 
-    <!-- SCRIPT FETCH BERITA DINAMIS DARI GOOGLE APPS SCRIPT -->
+    <!-- SCRIPT FETCH BERITA & RANTING DINAMIS DARI GOOGLE APPS SCRIPT -->
     <script>
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNpKmlXAylAWhl9Qay1B7-74q0AaCQKOuNf4Pz_i8RrIfpaxRdnFjWAgy5CwYg2Pcq/exec';
 
@@ -387,7 +382,48 @@
             }
         }
 
-        document.addEventListener("DOMContentLoaded", fetchBerita);
+        async function fetchRanting() {
+            const container = document.getElementById('ranting-container');
+            if(!container) return;
+
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=ranting&t=${Date.now()}`);
+                const data = await response.json();
+
+                container.innerHTML = '';
+                if(!data || data.length === 0 || data.status === "error") {
+                    container.innerHTML = '<div class="col-span-full py-10 text-center text-gray-500 text-xs">Belum ada data ranting yang tersedia.</div>';
+                    return;
+                }
+
+                data.forEach(item => {
+                    const ranting = item["Pimpinan Ranting"] || item.Pimpinan_Ranting || 'Pimpinan Ranting';
+                    const anakRanting = item["Pimpinan Anak Ranting"] || item.Pimpinan_Anak_Ranting || '-';
+                    const ketua = item["Kontak Ketua"] || item.kontua || '-';
+
+                    const rantingHTML = `
+                        <div class="bg-white p-6 border-l-4 border-utama shadow-sm flex flex-col justify-between hover:shadow-md transition-shadow">
+                            <div>
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-utama block mb-1">Pimpinan Ranting</span>
+                                <h3 class="font-display font-bold text-lg text-gray-900 mb-2">${ranting}</h3>
+                                <div class="text-xs text-gray-600 space-y-1 mb-4">
+                                    <p><strong class="text-gray-700">Wilayah:</strong> ${anakRanting}</p>
+                                    <p><strong class="text-gray-700">Ketua:</strong> ${ketua}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.innerHTML += rantingHTML;
+                });
+            } catch (error) {
+                container.innerHTML = '<div class="col-span-full py-10 text-center text-xs text-red-600 bg-putih-tema border-l-4 border-utama p-4">Gagal memuat data ranting dari Google Spreadsheet.</div>';
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchBerita();
+            fetchRanting();
+        });
     </script>
 </body>
 </html>
