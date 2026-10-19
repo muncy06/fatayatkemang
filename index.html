@@ -83,6 +83,7 @@
     </div>
 
     <!-- 2. NAVBAR UTAMA (LENGKAP: Beranda, Berita, Ranting, Galeri, Login) -->
+<!-- 2. NAVBAR UTAMA (DENGAN RESPONSIVE HAMBURGER MENU MOBILE) -->
     <nav class="bg-white sticky top-0 z-50 border-b-2 border-utama shadow-sm">
         <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex justify-between items-center">
             <a href="index.html" class="flex items-center gap-3 group">
@@ -92,6 +93,8 @@
                     <span class="text-[11px] font-bold text-utama tracking-widest uppercase mt-1">Kecamatan Kemang</span>
                 </div>
             </a>
+
+            <!-- Menu Desktop -->
             <div class="hidden md:flex items-center gap-7 text-sm font-semibold text-gray-700">
                 <a href="index.html" class="text-utama border-b-2 border-utama pb-1 transition-colors">Beranda</a>
                 <a href="#berita" class="hover:text-utama transition-colors pb-1">Berita</a>
@@ -99,14 +102,46 @@
                 <a href="#galeri" class="hover:text-utama transition-colors pb-1">Galeri</a>
                 <a href="admin/login.html" class="bg-utama hover:bg-utama-gelap text-white font-semibold text-xs px-6 py-2.5 transition-colors uppercase tracking-wider shadow-sm">Login</a>
             </div>
+
+            <!-- Tombol Garis Tiga (Mobile Hamburger Button) -->
+            <button id="menu-btn" class="md:hidden text-gray-700 hover:text-utama focus:outline-none p-1">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Dropdown Menu Mobile (Tersembunyi secara default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 pt-3 pb-5 space-y-3 shadow-lg">
+            <a href="index.html" class="block text-utama font-semibold text-sm py-1 border-b border-gray-50">Beranda</a>
+            <a href="#berita" onclick="toggleMenu()" class="block text-gray-700 hover:text-utama font-medium text-sm py-1 border-b border-gray-50">Berita</a>
+            <a href="#ranting" onclick="toggleMenu()" class="block text-gray-700 hover:text-utama font-medium text-sm py-1 border-b border-gray-50">Ranting</a>
+            <a href="#galeri" onclick="toggleMenu()" class="block text-gray-700 hover:text-utama font-medium text-sm py-1 border-b border-gray-50">Galeri</a>
+            <div class="pt-2">
+                <a href="admin/login.html" class="block text-center bg-utama hover:bg-utama-gelap text-white font-semibold text-xs py-2.5 uppercase tracking-wider shadow-sm">Login</a>
+            </div>
         </div>
     </nav>
+
+    <!-- Script Interaktif Toggle Menu Mobile -->
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', toggleMenu);
+        }
+    </script>
 
     <!-- 3. HERO SECTION (DENGAN BACKGROUND ASSETS bg.jfif SESUAI TEMA ASLI) -->
     <header class="relative w-full py-24 md:py-32 hero-bg text-white border-b-2 border-utama/30 overflow-hidden shadow-inner">
         <div class="relative z-10 max-w-5xl mx-auto px-4 md:px-8 text-center flex flex-col items-center">
-            <div class="p-4 bg-white/10 rounded-full shadow-lg backdrop-blur-md border border-white/20 mb-6">
-                <img src="assets/img/logo.png" alt="Logo Fatayat NU Kemang" class="h-24 md:h-32 w-auto object-contain" onerror="this.src='https://via.placeholder.com/150x150/00984a/ffffff?text=FATAYAT+NU'">
+            <div class="mb-6">
+                <img src="assets/img/logo.png" alt="Logo Fatayat NU Kemang" style="width: 120px; height: auto;" class="object-contain mx-auto" onerror="this.src='https://via.placeholder.com/150x150/00984a/ffffff?text=FATAYAT+NU'">
             </div>
             <div class="w-full max-w-3xl border-y-2 border-white/30 py-8 my-3">
                 <span class="inline-block px-4 py-1.5 bg-white text-utama text-[11px] font-bold uppercase tracking-widest mb-3 shadow">
