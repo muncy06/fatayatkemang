@@ -105,6 +105,7 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <!-- Kolom Kiri: Detail Artikel Utama -->
             <div class="lg:col-span-8 lg:border-r lg:border-utama/30 lg:pr-10" id="detail-artikel-container">
                 <div class="flex flex-col items-center justify-center py-20">
                     <div class="css-loader mb-3"></div>
@@ -112,12 +113,12 @@
                 </div>
             </div>
 
+            <!-- Kolom Kanan: Berita Terpopuler (Sesuai Referensi) -->
             <aside class="lg:col-span-4">
                 <div class="pb-3 mb-6 border-b-2 border-utama">
-                    <span class="text-utama font-bold text-[11px] tracking-widest uppercase">Baca Juga</span>
-                    <h3 class="text-lg font-display font-bold text-gray-900 mt-0.5">Berita Terbaru Lainnya</h3>
+                    <h3 class="text-base font-display font-bold text-gray-900 uppercase tracking-wider">Terpopuler</h3>
                 </div>
-                <div class="divide-y divide-gray-200" id="berita-lainnya-container">
+                <div class="space-y-5" id="terpopuler-container">
                     <div class="py-6 text-xs text-gray-400">Memuat daftar berita...</div>
                 </div>
             </aside>
@@ -131,16 +132,16 @@
         </div>
     </footer>
 
-    <!-- SCRIPT ARTIKEL & META TAG DINAMIS -->
+    <!-- SCRIPT ARTIKEL & META TAG DINAMIS BERBASIS SLUG -->
     <script>
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_337WlnNHVa2S1Q6bBaxhO7kEBB6tmXUmeWWHZjS5BPPS0P_YlYx7wkl-l7E4s3ff/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNpKmlXAylAWhl9Qay1B7-74q0AaCQKOuNf4Pz_i8RrIfpaxRdnFjWAgy5CwYg2Pcq/exec';
 
         const urlParams = new URLSearchParams(window.location.search);
-        const artikelId = urlParams.get('id');
+        const targetSlug = urlParams.get('slug') || urlParams.get('id');
 
         async function loadDetailArtikel() {
             const container = document.getElementById('detail-artikel-container');
-            const sidebarContainer = document.getElementById('berita-lainnya-container');
+            const populerContainer = document.getElementById('terpopuler-container');
 
             try {
                 const response = await fetch(`${APPS_SCRIPT_URL}?action=berita`);
@@ -151,33 +152,33 @@
                     return;
                 }
 
-                let artikel = data.find(item => String(item.ID || item.id_artikel) === String(artikelId));
+                let artikel = data.find(item => String(item.slug || item.ID || '').trim() === String(targetSlug).trim());
                 if (!artikel) {
                     artikel = data[data.length - 1];
                 }
 
-                const judul = artikel.Judul || artikel.judul || 'Tanpa Judul';
-                const kategori = artikel.Kategori || artikel.kategori || 'Warta';
-                const penulis = artikel.Penulis || artikel.penulis || 'Admin Fatayat Kemang';
-                const isi = artikel.Isi_Berita || artikel.isi_konten || artikel.Cuplikan || '';
-                const imgUrl = artikel.Link_Gambar || artikel.link_gambar || 'https://via.placeholder.com/800x450/E8F5E9/00984a?text=Fatayat+NU+Kemang';
+                const judul = artikel.judul || artikel.Judul || 'Tanpa Judul';
+                const kategori = artikel.kategori || artikel.Kategori || 'Kegiatan';
+                const penulis = artikel.penulis || artikel.Penulis || 'Media PAC Fatayat Kemang';
+                const isi = artikel.konte || artikel.Isi_Berita || artikel.ringkasan || '';
+                const imgUrl = artikel.gambar_url || artikel.Link_Gambar || '';
+                const namaDokumentasi = artikel.nama_dokumentasi || `Dokumentasi ${judul} (Tim Infokom PAC Fatayat Kemang)`;
                 const cuplikanText = isi.substring(0, 120) + '...';
 
-                // UPDATE META TAG SECARA DINAMIS UNTUK WHATSAPP / PREVIEW
+                // UPDATE META TAG SECARA DINAMIS UNTUK PREVIEW WHATSAPP
                 document.getElementById('meta-title').textContent = `${judul} - PAC Fatayat NU Kemang`;
                 document.getElementById('meta-desc').setAttribute('content', cuplikanText);
                 document.getElementById('og-title').setAttribute('content', judul);
                 document.getElementById('og-desc').setAttribute('content', cuplikanText);
                 document.getElementById('og-image').setAttribute('content', imgUrl);
 
-                let tgl = new Date(artikel.Tanggal || artikel.tanggal).toLocaleDateString('id-ID', {
+                let tgl = new Date(artikel.tanggal || artikel.Tanggal).toLocaleDateString('id-ID', {
                     day: 'numeric', month: 'long', year: 'numeric'
                 });
-                if (tgl === 'Invalid Date') tgl = artikel.Tanggal || artikel.tanggal || '-';
+                if (tgl === 'Invalid Date') tgl = artikel.tanggal || artikel.Tanggal || '-';
 
                 const paragrafIsi = isi.split('\n').filter(p => p.trim() !== '').map(p => `<p>${p}</p>`).join('');
 
-                // Tombol Bagikan ke WhatsApp dengan format Judul Berita yang Rapi
                 const currentUrl = window.location.href;
                 const waText = encodeURIComponent(`*${judul}*\n\nBaca selengkapnya di Portal Resmi PAC Fatayat NU Kemang:\n${currentUrl}`);
                 const waLink = `https://api.whatsapp.com/send?text=${waText}`;
@@ -191,7 +192,7 @@
                             </h1>
                             <div class="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-gray-100 text-xs text-gray-500">
                                 <div class="flex items-center gap-3">
-                                    <span>Penulis: <strong class="text-gray-800">${penulis}</strong></span>
+                                    <span>Oleh: <strong class="text-gray-800">${penulis}</strong></span>
                                     <span class="text-utama">|</span>
                                     <span>${tgl}</span>
                                 </div>
@@ -202,8 +203,11 @@
                             </div>
                         </div>
 
-                        <div class="mb-8 border-b-4 border-utama bg-abu-hijau">
-                            <img src="${imgUrl}" alt="${judul}" class="w-full max-h-[460px] object-cover" onerror="this.src='https://via.placeholder.com/800x450/E8F5E9/00984a?text=Dokumentasi+Berita'">
+                        <div class="mb-2">
+                            <img src="${imgUrl}" alt="${judul}" class="w-full max-h-[460px] object-cover border border-gray-200" onerror="this.style.display='none'">
+                        </div>
+                        <div class="text-[11px] text-gray-500 italic mb-8 pb-4 border-b border-gray-200">
+                            ${namaDokumentasi}
                         </div>
 
                         <div class="isi-artikel text-gray-800 text-sm sm:text-base leading-relaxed text-justify pb-8 border-b border-utama/30">
@@ -212,17 +216,21 @@
                     </article>
                 `;
 
-                sidebarContainer.innerHTML = '';
-                data.slice().reverse().slice(0, 5).forEach(item => {
-                    const idItem = item.ID || item.id_artikel || '';
-                    const judulItem = item.Judul || item.judul;
+                populerContainer.innerHTML = '';
+                data.slice().reverse().slice(0, 5).forEach((item, index) => {
+                    const slugItem = item.slug || item.ID || '';
+                    const judulItem = item.judul || item.Judul;
                     if (!judulItem) return;
 
-                    sidebarContainer.innerHTML += `
-                        <div class="py-4 group">
-                            <a href="artikel.html?id=${idItem}" class="font-display font-bold text-sm text-gray-900 group-hover:text-utama transition-colors leading-snug block">
-                                ${judulItem}
-                            </a>
+                    populerContainer.innerHTML += `
+                        <div class="flex items-start gap-4 group">
+                            <span class="font-display font-bold text-xl text-gray-300 group-hover:text-utama transition-colors">0${index + 1}</span>
+                            <div>
+                                <a href="artikel.html?slug=${slugItem}" class="font-display font-bold text-xs sm:text-sm text-gray-900 group-hover:text-utama transition-colors leading-snug block line-clamp-2">
+                                    ${judulItem}
+                                </a>
+                                <span class="text-[10px] text-gray-400 mt-1 block">${item.kategori || item.Kategori || 'Kegiatan'}</span>
+                            </div>
                         </div>
                     `;
                 });

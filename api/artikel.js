@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 // GANTI DENGAN URL DEPLOYMENT APPS SCRIPT ANDA NANTI
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_337WlnNHVa2S1Q6bBaxhO7kEBB6tmXUmeWWHZjS5BPPS0P_YlYx7wkl-l7E4s3ff/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNpKmlXAylAWhl9Qay1B7-74q0AaCQKOuNf4Pz_i8RrIfpaxRdnFjWAgy5CwYg2Pcq/exec';
 
 module.exports = async (req, res) => {
     const artikelId = req.query.id;

@@ -11,7 +11,6 @@
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Konfigurasi Warna Sesuai Rumus: #00984a, #FFF2F2, #E8F5E9 -->
     <script>
         tailwind.config = {
             theme: {
@@ -113,11 +112,17 @@
                         Link Foto Sampul / Google Drive
                     </label>
                     <input type="text" id="url_gambar" name="url_gambar" required
-                        placeholder="Contoh: https://drive.google.com/file/d/1lWBMZStAKhjmyRk... (atau link gambar lain)"
+                        placeholder="Contoh: https://drive.google.com/file/d/1lWBMZStAKhjmyRk..."
                         class="w-full px-4 py-3 bg-white border-b-2 border-utama text-xs sm:text-sm font-mono text-gray-800 outline-none">
-                    <span class="text-[11px] text-gray-500 mt-1 block">
-                        Tips: Upload foto ke Google Drive Anda, klik kanan &gt; Bagikan &gt; Salin Link, lalu tempel di sini. Link otomatis dibersihkan menjadi format langsung.
-                    </span>
+                </div>
+
+                <div>
+                    <label for="nama_dokumentasi" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">
+                        Nama / Keterangan Dokumentasi Foto (Caption)
+                    </label>
+                    <input type="text" id="nama_dokumentasi" name="nama_dokumentasi"
+                        placeholder="Contoh: Dokumentasi kegiatan PAC Fatayat NU Kemang (Tim Infokom)"
+                        class="w-full px-4 py-3 bg-white border-b-2 border-gray-300 focus:border-utama text-xs sm:text-sm text-gray-800 outline-none">
                 </div>
 
                 <!-- Pratinjau Gambar Otomatis -->
@@ -144,14 +149,12 @@
 
     </main>
 
-    <!-- 4. FOOTER ADMIN -->
     <footer class="bg-abu-hijau border-t-2 border-utama text-gray-600 mt-auto py-4 px-4 text-center text-[11px]">
         &copy; 2026 Admin Panel PAC Fatayat NU Kecamatan Kemang.
     </footer>
 
-    <!-- SCRIPT GABUNGAN (AUTH & ADMIN LOGIC) -->
     <script>
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYcMYgX_Ya0F5bdintTNeDaJqH-2CQByOzXpHD4t9Jr73AYF6as6sQqxc6Gk9AHswS/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNpKmlXAylAWhl9Qay1B7-74q0AaCQKOuNf4Pz_i8RrIfpaxRdnFjWAgy5CwYg2Pcq/exec';
 
         function requireAuth() {
             const adminData = localStorage.getItem('fatayat_admin');
@@ -159,9 +162,7 @@
                 window.location.href = 'login.html';
                 return null;
             }
-            try {
-                return JSON.parse(adminData);
-            } catch (e) {
+            try { return JSON.parse(adminData); } catch (e) {
                 localStorage.removeItem('fatayat_admin');
                 window.location.href = 'login.html';
                 return null;
@@ -172,13 +173,10 @@
             if (!url) return '';
             const trimmed = url.trim();
             if (trimmed.startsWith('https://lh3.googleusercontent.com/d/')) return trimmed;
-
             const matchD = trimmed.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
             if (matchD && matchD[1]) return `https://lh3.googleusercontent.com/d/${matchD[1]}`;
-
             const matchId = trimmed.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
             if (matchId && matchId[1]) return `https://lh3.googleusercontent.com/d/${matchId[1]}`;
-
             return trimmed;
         }
 
@@ -186,7 +184,6 @@
             const wrapper = document.getElementById('preview-wrapper');
             const img = document.getElementById('preview-gambar');
             if (!wrapper || !img) return;
-
             if (url) {
                 img.src = url;
                 wrapper.classList.remove('hidden');
@@ -237,20 +234,16 @@
                     params.append('penulis', document.getElementById('penulis').value);
                     params.append('isi', document.getElementById('isi').value);
                     params.append('url_gambar', linkBersih);
+                    params.append('nama_dokumentasi', document.getElementById('nama_dokumentasi').value);
 
                     try {
-                        const response = await fetch(APPS_SCRIPT_URL, {
-                            method: 'POST',
-                            body: params
-                        });
+                        const response = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: params });
                         const result = await response.json();
 
                         if (result.status === 'success') {
                             alertBox.textContent = 'Artikel berhasil dipublikasikan!';
                             alertBox.className = 'block mb-6 p-4 text-xs font-medium bg-abu-hijau text-gray-900 border-l-4 border-utama';
-                            setTimeout(() => {
-                                window.location.href = 'dashboard.html';
-                            }, 1000);
+                            setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
                         } else {
                             throw new Error(result.message || 'Gagal menyimpan artikel.');
                         }

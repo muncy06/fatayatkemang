@@ -47,6 +47,7 @@
 </head>
 <body class="bg-white text-gray-800 antialiased font-sans flex flex-col min-h-screen">
 
+    <!-- 1. TOP BAR ADMIN -->
     <div class="bg-abu-hijau text-gray-700 text-xs py-2 px-4 md:px-8 border-b border-utama/20">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <span class="font-semibold text-utama uppercase tracking-wider">Panel Pengurus / Administrator</span>
@@ -54,6 +55,7 @@
         </div>
     </div>
 
+    <!-- 2. NAVBAR ADMIN -->
     <nav class="bg-white sticky top-0 z-50 border-b-2 border-utama">
         <div class="max-w-7xl mx-auto px-4 md:px-8 py-3.5 flex justify-between items-center">
             <a href="dashboard.html" class="flex items-center gap-3">
@@ -73,7 +75,9 @@
         </div>
     </nav>
 
+    <!-- 3. KONTEN UTAMA DASHBOARD -->
     <main class="flex-grow w-full max-w-7xl mx-auto px-4 md:px-8 py-10">
+        
         <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-8 border-b-2 border-utama gap-4">
             <div>
                 <span class="text-utama font-bold text-xs tracking-widest uppercase">Manajemen Konten</span>
@@ -107,14 +111,16 @@
                 </tbody>
             </table>
         </div>
+
     </main>
 
+    <!-- 4. FOOTER ADMIN -->
     <footer class="bg-abu-hijau border-t-2 border-utama text-gray-600 mt-auto py-4 px-4 text-center text-[11px]">
         &copy; 2026 Admin Panel PAC Fatayat NU Kecamatan Kemang.
     </footer>
 
     <script>
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYcMYgX_Ya0F5bdintTNeDaJqH-2CQByOzXpHD4t9Jr73AYF6as6sQqxc6Gk9AHswS/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyNpKmlXAylAWhl9Qay1B7-74q0AaCQKOuNf4Pz_i8RrIfpaxRdnFjWAgy5CwYg2Pcq/exec';
 
         function requireAuth() {
             const adminData = localStorage.getItem('fatayat_admin');
@@ -122,9 +128,7 @@
                 window.location.href = 'login.html';
                 return null;
             }
-            try {
-                return JSON.parse(adminData);
-            } catch (e) {
+            try { return JSON.parse(adminData); } catch (e) {
                 localStorage.removeItem('fatayat_admin');
                 window.location.href = 'login.html';
                 return null;
@@ -149,17 +153,17 @@
                 const data = await response.json();
 
                 tbody.innerHTML = '';
-                if (!data || data.length === 0 || !data[0].Judul) {
+                if (!data || data.length === 0 || !data[0].judul) {
                     tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-gray-500">Belum ada artikel yang tersimpan di spreadsheet.</td></tr>`;
                     return;
                 }
 
                 data.reverse().forEach((item, index) => {
-                    const id = item.ID || item.id_artikel || index;
-                    const judul = item.Judul || item.judul || 'Tanpa Judul';
-                    const kategori = item.Kategori || item.kategori || 'Warta';
-                    const penulis = item.Penulis || item.penulis || 'Admin';
-                    const rawTgl = item.Tanggal || item.tanggal;
+                    const id = item.id || item.ID || index;
+                    const judul = item.judul || item.Judul || 'Tanpa Judul';
+                    const kategori = item.kategori || item.Kategori || 'Warta';
+                    const penulis = item.penulis || item.Penulis || 'Admin';
+                    const rawTgl = item.tanggal || item.Tanggal;
                     let tgl = new Date(rawTgl).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
                     if(tgl === 'Invalid Date') tgl = rawTgl || '-';
 
