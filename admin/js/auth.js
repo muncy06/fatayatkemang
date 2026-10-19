@@ -1,5 +1,5 @@
 // MASUKKAN URL DEPLOYMENT APPS SCRIPT ANDA DI SINI NANTI
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx5Irh4glDXwWrOnh1GxB8KE4jcRvLXnPexIUIveUo5QKgJierdt35z-i9PGu2Ajook/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_337WlnNHVa2S1Q6bBaxhO7kEBB6tmXUmeWWHZjS5BPPS0P_YlYx7wkl-l7E4s3ff/exec';
 
 const SESSION_KEY = 'fatayat_admin_session';
 
