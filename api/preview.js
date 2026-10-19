@@ -22,33 +22,32 @@ export default async function handler(req, res) {
     const userAgent = req.headers['user-agent'] || '';
     const isBot = /whatsapp|facebookexternalhit|twitterbot|linkedinbot|slackbot|telegrambot/i.test(userAgent);
 
-    if (isBot) {
-      res.setHeader('Content-Type', 'text/html; charset=utf-8');
-      return res.status(200).send(`
-        <!DOCTYPE html>
-        <html lang="id">
-        <head>
-            <meta charset="UTF-8">
-            <title>${judul}</title>
-            <meta name="description" content="${deskripsi}">
-            <meta property="og:type" content="article">
-            <meta property="og:site_name" content="PAC Fatayat NU Kemang">
-            <meta property="og:title" content="${judul}">
-            <meta property="og:description" content="${deskripsi}">
-            <meta property="og:image" content="${gambar}">
-            <meta property="og:url" content="${targetUrl}">
-            <meta name="twitter:card" content="summary_large_image">
-        </head>
-        <body>
-            <h1>${judul}</h1>
-            <p>${deskripsi}</p>
-        </body>
-        </html>
-      `);
-    } else {
-      res.setHeader('Cache-Control', 'no-store, max-age=0');
-      return res.redirect(302, targetUrl);
-    }
+    // Kirim HTML langsung berisi Meta Tag OG agar dibaca sempurna oleh Bot Facebook & WhatsApp
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store, max-age=0');
+    return res.status(200).send(`
+      <!DOCTYPE html>
+      <html lang="id">
+      <head>
+          <meta charset="UTF-8">
+          <title>${judul}</title>
+          <meta name="description" content="${deskripsi}">
+          <meta property="og:type" content="article">
+          <meta property="og:site_name" content="PAC Fatayat NU Kemang">
+          <meta property="og:title" content="${judul}">
+          <meta property="og:description" content="${deskripsi}">
+          <meta property="og:image" content="${gambar}">
+          <meta property="og:url" content="${targetUrl}">
+          <meta name="twitter:card" content="summary_large_image">
+          ${!isBot ? `<meta http-equiv="refresh" content="0;url=${targetUrl}">` : ''}
+      </head>
+      <body>
+          <h1>${judul}</h1>
+          <p>${deskripsi}</p>
+          ${!isBot ? `<script>window.location.href = "${targetUrl}";</script>` : ''}
+      </body>
+      </html>
+    `);
 
   } catch (error) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
