@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Artikel Baru - PAC Fatayat NU Kemang</title>
+    
+    <!-- Google Fonts: Inter & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Konfigurasi Warna Sesuai Rumus: #00984a, #FFF2F2, #E8F5E9 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'utama': '#00984a',
+                        'utama-gelap': '#007a3b',
+                        'putih-tema': '#FFF2F2',
+                        'abu-hijau': '#E8F5E9',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .btn-loader {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased font-sans flex flex-col min-h-screen">
+
+    <!-- 1. TOP BAR ADMIN -->
+    <div class="bg-abu-hijau text-gray-700 text-xs py-2 px-4 md:px-8 border-b border-utama/20">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <span class="font-semibold text-utama uppercase tracking-wider">Panel Pengurus / Tambah Artikel</span>
+            <a href="dashboard.html" class="font-medium text-gray-800 hover:underline">&larr; Kembali ke Dashboard</a>
+        </div>
+    </div>
+
+    <!-- 2. NAVBAR ADMIN -->
+    <nav class="bg-white sticky top-0 z-50 border-b-2 border-utama">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-3.5 flex justify-between items-center">
+            <a href="dashboard.html" class="flex items-center gap-3">
+                <img src="../assets/img/logo.png" alt="Logo Fatayat" class="h-10 w-auto object-contain" onerror="this.src='https://via.placeholder.com/100x100/00984a/ffffff?text=LOGO'">
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-base text-gray-900 leading-none">PUBLIKASI BERITA</span>
+                    <span class="text-[10px] font-semibold text-utama tracking-widest uppercase mt-1">PAC Fatayat NU Kemang</span>
+                </div>
+            </a>
+        </div>
+    </nav>
+
+    <!-- 3. FORM TAMBAH ARTIKEL -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 md:px-8 py-10">
+        
+        <div class="pb-4 mb-8 border-b-2 border-utama">
+            <span class="text-utama font-bold text-xs tracking-widest uppercase">Formulir Input</span>
+            <h1 class="text-2xl md:text-3xl font-display font-bold text-gray-900 mt-1">Tulis Artikel / Berita Baru</h1>
+        </div>
+
+        <div id="form-alert" class="hidden mb-6 p-4 text-xs font-medium border-l-4"></div>
+
+        <form id="form-tambah-artikel" class="space-y-6">
+            
+            <div>
+                <label for="judul" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Judul Artikel</label>
+                <input type="text" id="judul" name="judul" required placeholder="Masukkan judul berita utama..."
+                    class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label for="kategori" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Kategori Berita</label>
+                    <select id="kategori" name="kategori" required
+                        class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+                        <option value="Kegiatan">Kegiatan / Acara</option>
+                        <option value="Keagamaan">Keagamaan / Kajian</option>
+                        <option value="Kesehatan">Kesehatan & Stunting</option>
+                        <option value="Ekonomi">Ekonomi & UMKM</option>
+                        <option value="Pengumuman">Pengumuman Resmi</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="penulis" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Nama Penulis / Editor</label>
+                    <input type="text" id="penulis" name="penulis" required value="Media PAC Fatayat Kemang"
+                        class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+                </div>
+            </div>
+
+            <!-- FOTO SAMPUL: INPUT LINK GOOGLE DRIVE -->
+            <div class="p-4 bg-abu-hijau/30 border border-utama/30 space-y-3">
+                <div>
+                    <label for="url_gambar" class="block text-xs font-bold text-utama uppercase tracking-wider mb-2">
+                        Link Foto Sampul / Google Drive
+                    </label>
+                    <input type="text" id="url_gambar" name="url_gambar" required
+                        placeholder="Contoh: https://drive.google.com/file/d/1lWBMZStAKhjmyRk... (atau link gambar lain)"
+                        class="w-full px-4 py-3 bg-white border-b-2 border-utama text-xs sm:text-sm font-mono text-gray-800 outline-none">
+                    <span class="text-[11px] text-gray-500 mt-1 block">
+                        Tips: Upload foto ke Google Drive Anda, klik kanan &gt; Bagikan &gt; Salin Link, lalu tempel di sini. Link otomatis dibersihkan menjadi format langsung.
+                    </span>
+                </div>
+
+                <!-- Pratinjau Gambar Otomatis -->
+                <div id="preview-wrapper" class="hidden pt-2">
+                    <span class="block text-[10px] font-bold uppercase tracking-wider text-gray-500 mb-1">Pratinjau Gambar:</span>
+                    <img id="preview-gambar" src="" alt="Preview Thumbnail" class="h-32 w-auto object-cover border-2 border-utama">
+                </div>
+            </div>
+
+            <div>
+                <label for="isi" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Isi Berita Lengkap</label>
+                <textarea id="isi" name="isi" rows="10" required placeholder="Tuliskan isi berita selengkapnya di sini..."
+                    class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors resize-y"></textarea>
+            </div>
+
+            <div class="pt-4 flex items-center gap-4">
+                <button type="submit" id="btn-submit" class="px-8 py-3.5 bg-utama hover:bg-utama-gelap text-white font-semibold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2">
+                    <span id="btn-text">Publikasikan Artikel</span>
+                    <div id="btn-loader" class="hidden btn-loader"></div>
+                </button>
+                <a href="dashboard.html" class="text-xs font-semibold text-gray-600 hover:text-utama uppercase tracking-wider">Batal</a>
+            </div>
+        </form>
+
+    </main>
+
+    <!-- 4. FOOTER ADMIN -->
+    <footer class="bg-abu-hijau border-t-2 border-utama text-gray-600 mt-auto py-4 px-4 text-center text-[11px]">
+        &copy; 2026 Admin Panel PAC Fatayat NU Kecamatan Kemang.
+    </footer>
+
+    <!-- SCRIPT GABUNGAN (AUTH & ADMIN LOGIC) -->
+    <script>
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYcMYgX_Ya0F5bdintTNeDaJqH-2CQByOzXpHD4t9Jr73AYF6as6sQqxc6Gk9AHswS/exec';
+
+        function requireAuth() {
+            const adminData = localStorage.getItem('fatayat_admin');
+            if (!adminData) {
+                window.location.href = 'login.html';
+                return null;
+            }
+            try {
+                return JSON.parse(adminData);
+            } catch (e) {
+                localStorage.removeItem('fatayat_admin');
+                window.location.href = 'login.html';
+                return null;
+            }
+        }
+
+        function formatKeLh3Drive(url) {
+            if (!url) return '';
+            const trimmed = url.trim();
+            if (trimmed.startsWith('https://lh3.googleusercontent.com/d/')) return trimmed;
+
+            const matchD = trimmed.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
+            if (matchD && matchD[1]) return `https://lh3.googleusercontent.com/d/${matchD[1]}`;
+
+            const matchId = trimmed.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
+            if (matchId && matchId[1]) return `https://lh3.googleusercontent.com/d/${matchId[1]}`;
+
+            return trimmed;
+        }
+
+        function tampilkanPreview(url) {
+            const wrapper = document.getElementById('preview-wrapper');
+            const img = document.getElementById('preview-gambar');
+            if (!wrapper || !img) return;
+
+            if (url) {
+                img.src = url;
+                wrapper.classList.remove('hidden');
+            } else {
+                img.src = '';
+                wrapper.classList.add('hidden');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const admin = requireAuth();
+            if (!admin) return;
+
+            const inputUrlGambar = document.getElementById('url_gambar');
+            const formTambah = document.getElementById('form-tambah-artikel');
+
+            if (inputUrlGambar) {
+                const prosesLink = () => {
+                    const bersih = formatKeLh3Drive(inputUrlGambar.value);
+                    inputUrlGambar.value = bersih;
+                    tampilkanPreview(bersih);
+                };
+                inputUrlGambar.addEventListener('input', prosesLink);
+                inputUrlGambar.addEventListener('paste', () => setTimeout(prosesLink, 50));
+            }
+
+            if (formTambah) {
+                formTambah.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const btnSubmit = document.getElementById('btn-submit');
+                    const btnText = document.getElementById('btn-text');
+                    const btnLoader = document.getElementById('btn-loader');
+                    const alertBox = document.getElementById('form-alert');
+
+                    btnText.textContent = 'Menyimpan ke Spreadsheet...';
+                    btnLoader.classList.remove('hidden');
+                    btnSubmit.disabled = true;
+                    alertBox.classList.add('hidden');
+
+                    const linkBersih = formatKeLh3Drive(inputUrlGambar ? inputUrlGambar.value : '');
+
+                    const params = new URLSearchParams();
+                    params.append('action', 'tambahArtikel');
+                    params.append('token', admin.token_sesi || '');
+                    params.append('judul', document.getElementById('judul').value);
+                    params.append('kategori', document.getElementById('kategori').value);
+                    params.append('penulis', document.getElementById('penulis').value);
+                    params.append('isi', document.getElementById('isi').value);
+                    params.append('url_gambar', linkBersih);
+
+                    try {
+                        const response = await fetch(APPS_SCRIPT_URL, {
+                            method: 'POST',
+                            body: params
+                        });
+                        const result = await response.json();
+
+                        if (result.status === 'success') {
+                            alertBox.textContent = 'Artikel berhasil dipublikasikan!';
+                            alertBox.className = 'block mb-6 p-4 text-xs font-medium bg-abu-hijau text-gray-900 border-l-4 border-utama';
+                            setTimeout(() => {
+                                window.location.href = 'dashboard.html';
+                            }, 1000);
+                        } else {
+                            throw new Error(result.message || 'Gagal menyimpan artikel.');
+                        }
+                    } catch (error) {
+                        alertBox.textContent = error.message || 'Terjadi kesalahan jaringan.';
+                        alertBox.className = 'block mb-6 p-4 text-xs font-medium bg-putih-tema text-red-700 border-l-4 border-red-600';
+                        btnText.textContent = 'Publikasikan Artikel';
+                        btnLoader.classList.add('hidden');
+                        btnSubmit.disabled = false;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

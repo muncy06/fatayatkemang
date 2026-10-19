@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- OG_META_START -->
-    <title>Baca Artikel - PAC Fatayat NU Kecamatan Kemang</title>
-    <meta name="description" content="Portal berita dan informasi resmi PAC Fatayat Nahdlatul Ulama Kecamatan Kemang, Kabupaten Bogor.">
+    <!-- OG_META_START (Dinamis untuk WhatsApp & Media Sosial) -->
+    <title id="meta-title">Baca Artikel - PAC Fatayat NU Kecamatan Kemang</title>
+    <meta id="meta-desc" name="description" content="Portal berita dan informasi resmi PAC Fatayat Nahdlatul Ulama Kecamatan Kemang, Kabupaten Bogor.">
+    
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="PAC Fatayat NU Kemang">
-    <meta property="og:title" content="Warta PAC Fatayat NU Kecamatan Kemang">
-    <meta property="og:description" content="Portal berita dan informasi resmi PAC Fatayat Nahdlatul Ulama Kecamatan Kemang, Kabupaten Bogor.">
-    <meta property="og:image" content="https://via.placeholder.com/800x450/00984a/ffffff?text=PAC+Fatayat+NU+Kemang">
+    <meta id="og-title" property="og:title" content="Warta PAC Fatayat NU Kecamatan Kemang">
+    <meta id="og-desc" property="og:description" content="Portal berita dan informasi resmi PAC Fatayat Nahdlatul Ulama Kecamatan Kemang, Kabupaten Bogor.">
+    <meta id="og-image" property="og:image" content="https://via.placeholder.com/800x450/00984a/ffffff?text=PAC+Fatayat+NU+Kemang">
+    
     <meta name="twitter:card" content="summary_large_image">
     <!-- OG_META_END -->
     
@@ -21,7 +23,6 @@
     <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Konfigurasi Warna Sesuai Rumus: #00984a, #FFF2F2, #E8F5E9 -->
     <script>
         tailwind.config = {
             theme: {
@@ -50,12 +51,10 @@
             height: 36px;
             animation: spin 0.8s linear infinite;
         }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
         .isi-artikel p {
             margin-bottom: 1.25rem;
             line-height: 1.85;
@@ -71,8 +70,6 @@
                 <span>Kecamatan Kemang, Kabupaten Bogor 16310</span>
                 <span class="hidden sm:inline text-utama">|</span>
                 <span>0812-3456-7890</span>
-                <span class="hidden md:inline text-utama">|</span>
-                <span class="hidden md:inline">fatayatkemang@gmail.com</span>
             </div>
             <div class="font-semibold text-utama tracking-wide uppercase text-[11px] hidden sm:block">
                 PAC Fatayat NU Kemang
@@ -90,45 +87,15 @@
                     <span class="text-[11px] font-semibold text-utama tracking-widest uppercase mt-1">Kecamatan Kemang</span>
                 </div>
             </a>
-
-            <!-- Menu Desktop -->
             <div class="hidden md:flex items-center gap-7 text-sm font-medium text-gray-700">
                 <a href="index.html" class="hover:text-utama transition-colors pb-1">Beranda</a>
-                <a href="index.html#profil" class="hover:text-utama transition-colors pb-1">Profil</a>
-                <a href="index.html#ranting" class="hover:text-utama transition-colors pb-1">Ranting</a>
-                <a href="index.html#galeri" class="hover:text-utama transition-colors pb-1">Galeri</a>
-                <a href="index.html#kontak" class="hover:text-utama transition-colors pb-1">Kontak</a>
                 <a href="admin/login.html" class="bg-utama hover:bg-utama-gelap text-white font-semibold text-xs px-5 py-2.5 transition-colors uppercase tracking-wider">Login</a>
-            </div>
-
-            <!-- Tombol Hamburger Mobile -->
-            <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-800 hover:text-utama focus:outline-none border border-gray-200" aria-label="Buka Menu">
-                <svg id="icon-menu" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-                <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </button>
-        </div>
-
-        <!-- Daftar Menu Mobile -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200 divide-y divide-gray-100 text-sm font-medium">
-            <a href="index.html" class="block px-6 py-3.5 text-gray-700 hover:bg-abu-hijau/40">Beranda</a>
-            <a href="index.html#profil" class="block px-6 py-3.5 text-gray-700 hover:bg-abu-hijau/40">Profil</a>
-            <a href="index.html#ranting" class="block px-6 py-3.5 text-gray-700 hover:bg-abu-hijau/40">Ranting</a>
-            <a href="index.html#galeri" class="block px-6 py-3.5 text-gray-700 hover:bg-abu-hijau/40">Galeri</a>
-            <a href="index.html#kontak" class="block px-6 py-3.5 text-gray-700 hover:bg-abu-hijau/40">Kontak</a>
-            <div class="p-4 bg-putih-tema/50">
-                <a href="admin/login.html" class="block w-full text-center bg-utama text-white font-semibold py-3 uppercase tracking-wider text-xs">Login Admin</a>
             </div>
         </div>
     </nav>
 
-    <!-- 3. KONTEN ARTIKEL (Format Garis Kiri-Kanan & Atas-Bawah) -->
+    <!-- 3. KONTEN ARTIKEL -->
     <main class="flex-grow w-full max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-16">
-        
-        <!-- Baris Navigasi Kembali -->
         <div class="pb-4 mb-8 border-b border-gray-200 flex items-center justify-between text-xs">
             <a href="index.html" class="text-utama font-semibold uppercase tracking-wider hover:underline flex items-center gap-1.5">
                 <span>&larr;</span>
@@ -138,8 +105,6 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            
-            <!-- Kolom Kiri: Isi Artikel Utama -->
             <div class="lg:col-span-8 lg:border-r lg:border-utama/30 lg:pr-10" id="detail-artikel-container">
                 <div class="flex flex-col items-center justify-center py-20">
                     <div class="css-loader mb-3"></div>
@@ -147,61 +112,28 @@
                 </div>
             </div>
 
-            <!-- Kolom Kanan: Berita Terbaru Lainnya -->
             <aside class="lg:col-span-4">
                 <div class="pb-3 mb-6 border-b-2 border-utama">
                     <span class="text-utama font-bold text-[11px] tracking-widest uppercase">Baca Juga</span>
                     <h3 class="text-lg font-display font-bold text-gray-900 mt-0.5">Berita Terbaru Lainnya</h3>
                 </div>
-
                 <div class="divide-y divide-gray-200" id="berita-lainnya-container">
                     <div class="py-6 text-xs text-gray-400">Memuat daftar berita...</div>
                 </div>
             </aside>
-
         </div>
     </main>
 
     <!-- 4. FOOTER -->
     <footer class="bg-abu-hijau border-t-2 border-utama text-gray-700 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 md:px-8 py-10 flex flex-col md:flex-row justify-between items-center gap-6 text-xs">
-            <div class="flex items-center gap-3">
-                <img src="assets/img/logo.png" alt="Logo" class="h-9 w-auto object-contain" onerror="this.style.display='none'">
-                <div>
-                    <span class="font-display font-bold text-sm text-gray-900 block">PAC FATAYAT NU KECAMATAN KEMANG</span>
-                    <span class="text-gray-600">Kabupaten Bogor — Jawa Barat</span>
-                </div>
-            </div>
-            <div class="flex flex-wrap justify-center gap-6 font-medium text-gray-700">
-                <a href="index.html" class="hover:text-utama">Beranda</a>
-                <a href="index.html#profil" class="hover:text-utama">Profil</a>
-                <a href="index.html#ranting" class="hover:text-utama">Ranting</a>
-                <a href="index.html#galeri" class="hover:text-utama">Galeri</a>
-                <a href="index.html#kontak" class="hover:text-utama">Kontak</a>
-                <a href="admin/login.html" class="text-utama font-semibold hover:underline">Login</a>
-            </div>
-        </div>
-        <div class="border-t border-utama/20 py-4 px-4 text-center text-[11px] text-gray-600 bg-putih-tema/50">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-6 text-center text-[11px] text-gray-600">
             &copy; 2026 Pimpinan Anak Cabang Fatayat Nahdlatul Ulama Kecamatan Kemang.
         </div>
     </footer>
 
-    <!-- 5. SCRIPT JAVASCRIPT -->
+    <!-- SCRIPT ARTIKEL & META TAG DINAMIS -->
     <script>
-        // MASUKKAN URL DEPLOYMENT APPS SCRIPT ANDA DI SINI
         const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_337WlnNHVa2S1Q6bBaxhO7kEBB6tmXUmeWWHZjS5BPPS0P_YlYx7wkl-l7E4s3ff/exec';
-
-        // Menu Mobile Toggle
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const iconMenu = document.getElementById('icon-menu');
-        const iconClose = document.getElementById('icon-close');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            iconMenu.classList.toggle('hidden');
-            iconClose.classList.toggle('hidden');
-        });
 
         const urlParams = new URLSearchParams(window.location.search);
         const artikelId = urlParams.get('id');
@@ -215,7 +147,7 @@
                 const data = await response.json();
 
                 if (!data || data.length === 0) {
-                    container.innerHTML = '<div class="py-10 text-sm text-gray-500 border-y border-gray-200">Data artikel belum tersedia di server.</div>';
+                    container.innerHTML = '<div class="py-10 text-sm text-gray-500">Data artikel belum tersedia.</div>';
                     return;
                 }
 
@@ -228,7 +160,15 @@
                 const kategori = artikel.Kategori || artikel.kategori || 'Warta';
                 const penulis = artikel.Penulis || artikel.penulis || 'Admin Fatayat Kemang';
                 const isi = artikel.Isi_Berita || artikel.isi_konten || artikel.Cuplikan || '';
-                const imgUrl = artikel.Link_Gambar || artikel.url_gambar || 'https://via.placeholder.com/800x450/E8F5E9/00984a?text=Fatayat+NU+Kemang';
+                const imgUrl = artikel.Link_Gambar || artikel.link_gambar || 'https://via.placeholder.com/800x450/E8F5E9/00984a?text=Fatayat+NU+Kemang';
+                const cuplikanText = isi.substring(0, 120) + '...';
+
+                // UPDATE META TAG SECARA DINAMIS UNTUK WHATSAPP / PREVIEW
+                document.getElementById('meta-title').textContent = `${judul} - PAC Fatayat NU Kemang`;
+                document.getElementById('meta-desc').setAttribute('content', cuplikanText);
+                document.getElementById('og-title').setAttribute('content', judul);
+                document.getElementById('og-desc').setAttribute('content', cuplikanText);
+                document.getElementById('og-image').setAttribute('content', imgUrl);
 
                 let tgl = new Date(artikel.Tanggal || artikel.tanggal).toLocaleDateString('id-ID', {
                     day: 'numeric', month: 'long', year: 'numeric'
@@ -236,9 +176,8 @@
                 if (tgl === 'Invalid Date') tgl = artikel.Tanggal || artikel.tanggal || '-';
 
                 const paragrafIsi = isi.split('\n').filter(p => p.trim() !== '').map(p => `<p>${p}</p>`).join('');
-                document.title = `${judul} - PAC Fatayat NU Kemang`;
 
-                // Buat Tautan Bagikan ke WhatsApp
+                // Tombol Bagikan ke WhatsApp dengan format Judul Berita yang Rapi
                 const currentUrl = window.location.href;
                 const waText = encodeURIComponent(`*${judul}*\n\nBaca selengkapnya di Portal Resmi PAC Fatayat NU Kemang:\n${currentUrl}`);
                 const waLink = `https://api.whatsapp.com/send?text=${waText}`;
@@ -279,14 +218,8 @@
                     const judulItem = item.Judul || item.judul;
                     if (!judulItem) return;
 
-                    let tglItem = new Date(item.Tanggal || item.tanggal).toLocaleDateString('id-ID', {
-                        day: 'numeric', month: 'short', year: 'numeric'
-                    });
-                    if (tglItem === 'Invalid Date') tglItem = item.Tanggal || item.tanggal || '';
-
                     sidebarContainer.innerHTML += `
                         <div class="py-4 group">
-                            <span class="text-[10px] font-semibold uppercase tracking-wider text-utama block mb-1">${tglItem}</span>
                             <a href="artikel.html?id=${idItem}" class="font-display font-bold text-sm text-gray-900 group-hover:text-utama transition-colors leading-snug block">
                                 ${judulItem}
                             </a>
@@ -295,8 +228,7 @@
                 });
 
             } catch (error) {
-                container.innerHTML = '<div class="py-6 px-4 text-xs text-gray-700 bg-putih-tema border-l-4 border-utama">Menunggu koneksi database berita (Pastikan URL Apps Script sudah dipasang).</div>';
-                sidebarContainer.innerHTML = '<div class="py-4 text-xs text-gray-400">Belum terhubung ke server.</div>';
+                container.innerHTML = '<div class="py-6 px-4 text-xs text-gray-700 bg-putih-tema border-l-4 border-utama">Gagal memuat berita dari server.</div>';
             }
         }
 

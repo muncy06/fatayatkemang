@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Artikel - PAC Fatayat NU Kemang</title>
+    
+    <!-- Google Fonts: Inter & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        'utama': '#00984a',
+                        'utama-gelap': '#007a3b',
+                        'putih-tema': '#FFF2F2',
+                        'abu-hijau': '#E8F5E9',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .btn-loader {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased font-sans flex flex-col min-h-screen">
+
+    <div class="bg-abu-hijau text-gray-700 text-xs py-2 px-4 md:px-8 border-b border-utama/20">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <span class="font-semibold text-utama uppercase tracking-wider">Panel Pengurus / Edit Artikel</span>
+            <a href="dashboard.html" class="font-medium text-gray-800 hover:underline">&larr; Kembali ke Dashboard</a>
+        </div>
+    </div>
+
+    <nav class="bg-white sticky top-0 z-50 border-b-2 border-utama">
+        <div class="max-w-7xl mx-auto px-4 md:px-8 py-3.5 flex justify-between items-center">
+            <a href="dashboard.html" class="flex items-center gap-3">
+                <img src="../assets/img/logo.png" alt="Logo Fatayat" class="h-10 w-auto object-contain" onerror="this.src='https://via.placeholder.com/100x100/00984a/ffffff?text=LOGO'">
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-base text-gray-900 leading-none">MODIFIKASI ARTIKEL</span>
+                    <span class="text-[10px] font-semibold text-utama tracking-widest uppercase mt-1">PAC Fatayat NU Kemang</span>
+                </div>
+            </a>
+        </div>
+    </nav>
+
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 md:px-8 py-10">
+        <div class="pb-4 mb-8 border-b-2 border-utama">
+            <span class="text-utama font-bold text-xs tracking-widest uppercase">Pembaruan Konten</span>
+            <h1 class="text-2xl md:text-3xl font-display font-bold text-gray-900 mt-1">Sunting Artikel Berita</h1>
+        </div>
+
+        <div id="form-alert" class="hidden mb-6 p-4 text-xs font-medium border-l-4"></div>
+
+        <form id="form-edit-artikel" class="space-y-6">
+            <input type="hidden" id="artikel-id" name="id">
+
+            <div>
+                <label for="judul" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Judul Artikel</label>
+                <input type="text" id="judul" name="judul" required
+                    class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                    <label for="kategori" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Kategori Berita</label>
+                    <select id="kategori" name="kategori" required
+                        class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+                        <option value="Kegiatan">Kegiatan / Acara</option>
+                        <option value="Keagamaan">Keagamaan / Kajian</option>
+                        <option value="Kesehatan">Kesehatan & Stunting</option>
+                        <option value="Ekonomi">Ekonomi & UMKM</option>
+                        <option value="Pengumuman">Pengumuman Resmi</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="penulis" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Nama Penulis / Editor</label>
+                    <input type="text" id="penulis" name="penulis" required
+                        class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors">
+                </div>
+            </div>
+
+            <div class="p-4 bg-abu-hijau/30 border border-utama/30 space-y-3">
+                <div>
+                    <label for="url_gambar" class="block text-xs font-bold text-utama uppercase tracking-wider mb-2">
+                        Link Foto Sampul / Google Drive Baru (Opsional)
+                    </label>
+                    <input type="text" id="url_gambar" name="url_gambar"
+                        placeholder="Biarkan kosong jika tidak ingin mengubah foto"
+                        class="w-full px-4 py-3 bg-white border-b-2 border-utama text-xs sm:text-sm font-mono text-gray-800 outline-none">
+                </div>
+            </div>
+
+            <div>
+                <label for="isi" class="block text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Isi Berita Lengkap</label>
+                <textarea id="isi" name="isi" rows="10" required
+                    class="w-full px-4 py-3 bg-putih-tema/40 border-b-2 border-gray-300 focus:border-utama focus:bg-abu-hijau/30 text-sm outline-none transition-colors resize-y"></textarea>
+            </div>
+
+            <div class="pt-4 flex items-center gap-4">
+                <button type="submit" id="btn-submit" class="px-8 py-3.5 bg-utama hover:bg-utama-gelap text-white font-semibold text-xs uppercase tracking-widest transition-colors flex items-center justify-center gap-2">
+                    <span id="btn-text">Simpan Perubahan</span>
+                    <div id="btn-loader" class="hidden btn-loader"></div>
+                </button>
+                <a href="dashboard.html" class="text-xs font-semibold text-gray-600 hover:text-utama uppercase tracking-wider">Batal</a>
+            </div>
+        </form>
+    </main>
+
+    <footer class="bg-abu-hijau border-t-2 border-utama text-gray-600 mt-auto py-4 px-4 text-center text-[11px]">
+        &copy; 2026 Admin Panel PAC Fatayat NU Kecamatan Kemang.
+    </footer>
+
+    <script>
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYcMYgX_Ya0F5bdintTNeDaJqH-2CQByOzXpHD4t9Jr73AYF6as6sQqxc6Gk9AHswS/exec';
+
+        function requireAuth() {
+            const adminData = localStorage.getItem('fatayat_admin');
+            if (!adminData) {
+                window.location.href = 'login.html';
+                return null;
+            }
+            try {
+                return JSON.parse(adminData);
+            } catch (e) {
+                localStorage.removeItem('fatayat_admin');
+                window.location.href = 'login.html';
+                return null;
+            }
+        }
+
+        function formatKeLh3Drive(url) {
+            if (!url) return '';
+            const trimmed = url.trim();
+            if (trimmed.startsWith('https://lh3.googleusercontent.com/d/')) return trimmed;
+
+            const matchD = trimmed.match(/\/d\/([a-zA-Z0-9_-]{10,})/);
+            if (matchD && matchD[1]) return `https://lh3.googleusercontent.com/d/${matchD[1]}`;
+
+            const matchId = trimmed.match(/[?&]id=([a-zA-Z0-9_-]{10,})/);
+            if (matchId && matchId[1]) return `https://lh3.googleusercontent.com/d/${matchId[1]}`;
+
+            return trimmed;
+        }
+
+        const admin = requireAuth();
+        const urlParams = new URLSearchParams(window.location.search);
+        const artikelId = urlParams.get('id');
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!artikelId) {
+                alert('ID Artikel tidak valid.');
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?action=berita`);
+                const data = await response.json();
+                const artikel = data.find(item => String(item.ID || item.id_artikel) === String(artikelId));
+
+                if (artikel) {
+                    document.getElementById('artikel-id').value = artikelId;
+                    document.getElementById('judul').value = artikel.Judul || artikel.judul || '';
+                    document.getElementById('kategori').value = artikel.Kategori || artikel.kategori || 'Kegiatan';
+                    document.getElementById('penulis').value = artikel.Penulis || artikel.penulis || '';
+                    document.getElementById('url_gambar').value = artikel.Link_Gambar || artikel.link_gambar || '';
+                    document.getElementById('isi').value = artikel.Isi_Berita || artikel.isi_konten || '';
+                } else {
+                    alert('Artikel tidak ditemukan di server.');
+                    window.location.href = 'dashboard.html';
+                }
+            } catch (error) {
+                console.error('Gagal memuat artikel:', error);
+            }
+
+            const formEdit = document.getElementById('form-edit-artikel');
+            formEdit.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const btnSubmit = document.getElementById('btn-submit');
+                const btnText = document.getElementById('btn-text');
+                const btnLoader = document.getElementById('btn-loader');
+                const alertBox = document.getElementById('form-alert');
+
+                btnText.textContent = 'Menyimpan...';
+                btnLoader.classList.remove('hidden');
+                btnSubmit.disabled = true;
+                alertBox.classList.add('hidden');
+
+                const linkBersih = formatKeLh3Drive(document.getElementById('url_gambar').value);
+
+                const params = new URLSearchParams();
+                params.append('action', 'editArtikel');
+                params.append('token', admin.token_sesi || '');
+                params.append('id', document.getElementById('artikel-id').value);
+                params.append('judul', document.getElementById('judul').value);
+                params.append('kategori', document.getElementById('kategori').value);
+                params.append('penulis', document.getElementById('penulis').value);
+                params.append('isi', document.getElementById('isi').value);
+                params.append('url_gambar', linkBersih);
+
+                try {
+                    const response = await fetch(APPS_SCRIPT_URL, {
+                        method: 'POST',
+                        body: params
+                    });
+                    const result = await response.json();
+
+                    if (result.status === 'success') {
+                        alertBox.textContent = 'Perubahan artikel berhasil disimpan!';
+                        alertBox.className = 'block mb-6 p-4 text-xs font-medium bg-abu-hijau text-gray-900 border-l-4 border-utama';
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 1200);
+                    } else {
+                        throw new Error(result.message || 'Gagal memperbarui artikel.');
+                    }
+                } catch (error) {
+                    alertBox.textContent = error.message || 'Terjadi kesalahan jaringan.';
+                    alertBox.className = 'block mb-6 p-4 text-xs font-medium bg-putih-tema text-red-700 border-l-4 border-red-600';
+                    btnText.textContent = 'Simpan Perubahan';
+                    btnLoader.classList.add('hidden');
+                    btnSubmit.disabled = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
