@@ -153,7 +153,7 @@
                 const data = await response.json();
 
                 tbody.innerHTML = '';
-                if (!data || data.length === 0 || !data[0].judul) {
+                if (!data || data.length === 0) {
                     tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-gray-500">Belum ada artikel yang tersimpan di spreadsheet.</td></tr>`;
                     return;
                 }
