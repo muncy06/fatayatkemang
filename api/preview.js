@@ -20,8 +20,8 @@ export default async function handler(req, res) {
     const gambar = artikel.gambar_url || artikel.Link_Gambar || 'https://via.placeholder.com/800x450/00984a/ffffff?text=Fatayat+NU';
 
     // PENTING: og:url harus menggunakan previewUrl agar Facebook tidak pindah ke artikel.html
-    const previewUrl = `https://fatayatkemang.vercel.app/api/preview?slug=${itemSlug}`;
-    const targetUrl = `https://fatayatkemang.vercel.app/artikel.html?slug=${itemSlug}`;
+    const previewUrl = `https://fatayatkemang.my.id/api/preview?slug=${itemSlug}`;
+    const targetUrl = `https://fatayatkemang.my.id/artikel.html?slug=${itemSlug}`;
 
     const userAgent = req.headers['user-agent'] || '';
     const isBot = /whatsapp|facebookexternalhit|facebot|meta-externalagent|twitterbot|linkedinbot|slackbot|telegrambot/i.test(userAgent);
