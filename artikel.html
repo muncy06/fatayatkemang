@@ -187,8 +187,10 @@
 
                 const paragrafIsi = isi.split('\n').filter(p => p.trim() !== '').map(p => `<p>${p}</p>`).join('');
                 
-                // URL Preview untuk dibagikan agar card WhatsApp muncul dengan sempurna
-                const previewShareUrl = `https://fatayatkemang.vercel.app/api/preview?slug=${itemSlug}`;
+// URL Preview untuk dibagikan agar card WhatsApp muncul dengan sempurna
+                const previewShareUrl = `https://fatayatkemang.// URL Preview untuk dibagikan agar card WhatsApp muncul dengan sempurna
+                const previewShareUrl = `https://fatayatkemang.my.id/api/preview?slug=${itemSlug}`;
+                const encodedShareUrl = encodeURIComponent(previewShareUrl);/api/preview?slug=${itemSlug}`;
                 const encodedShareUrl = encodeURIComponent(previewShareUrl);
 
                 container.innerHTML = `
