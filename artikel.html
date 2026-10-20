@@ -97,7 +97,7 @@
                 <a href="admin/login.html" class="bg-utama hover:bg-utama-gelap text-white font-semibold text-xs px-5 py-2.5 transition-colors uppercase tracking-wider">Login</a>
             </div>
         </div>
-    </nav>
+    </div>
 
     <!-- 3. KONTEN ARTIKEL -->
     <main class="flex-grow w-full max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-16">
@@ -145,6 +145,7 @@
         const targetSlug = urlParams.get('slug') || urlParams.get('id');
 
         let currentFontSize = 16; 
+        let currentShareUrl = window.location.href;
 
         async function loadDetailArtikel() {
             const container = document.getElementById('detail-artikel-container');
@@ -167,10 +168,10 @@
                 const judul = artikel.judul || artikel.Judul || 'Tanpa Judul';
                 const kategori = artikel.kategori || artikel.Kategori || 'Kegiatan';
                 const penulis = artikel.penulis || artikel.Penulis || 'Media PAC Fatayat Kemang';
-                const isi = artikel.konte || artikel.Isi_Berita || artikel.ringkasan || '';
+                const isi = artikel.konten || artikel.konte || artikel.Isi_Berita || artikel.ringkasan || '';
                 const imgUrl = artikel.gambar_url || artikel.Link_Gambar || '';
                 const namaDokumentasi = artikel.nama_dokumentasi || `Dokumentasi ${judul} (Tim Infokom PAC Fatayat Kemang)`;
-                const cuplikanText = isi.substring(0, 120) + '...';
+                const cuplikanText = isi.replace(/<[^>]*>?/gm, '').substring(0, 120) + '...';
                 const itemSlug = artikel.slug || artikel.ID || targetSlug;
 
                 // UPDATE META TAG
@@ -187,11 +188,10 @@
 
                 const paragrafIsi = isi.split('\n').filter(p => p.trim() !== '').map(p => `<p>${p}</p>`).join('');
                 
-// URL Preview untuk dibagikan agar card WhatsApp muncul dengan sempurna
-                const previewShareUrl = `https://fatayatkemang.// URL Preview untuk dibagikan agar card WhatsApp muncul dengan sempurna
+                // URL Preview untuk dibagikan agar card WhatsApp muncul dengan sempurna
                 const previewShareUrl = `https://fatayatkemang.my.id/api/preview?slug=${itemSlug}`;
-                const encodedShareUrl = encodeURIComponent(previewShareUrl);/api/preview?slug=${itemSlug}`;
                 const encodedShareUrl = encodeURIComponent(previewShareUrl);
+                currentShareUrl = previewShareUrl;
 
                 container.innerHTML = `
                     <article>
@@ -279,7 +279,7 @@
         }
 
         function salinLink() {
-            navigator.clipboard.writeText(window.location.href).then(() => {
+            navigator.clipboard.writeText(currentShareUrl).then(() => {
                 alert('Tautan artikel berhasil disalin ke clipboard!');
             });
         }
